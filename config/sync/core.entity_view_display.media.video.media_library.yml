@@ -10,12 +10,41 @@ dependencies:
   module:
     - field_layout
     - image
+    - layout_builder
     - layout_discovery
 third_party_settings:
   field_layout:
     id: layout_onecol
     settings:
       label: ''
+  layout_builder:
+    enabled: true
+    sections:
+      -
+        layout_id: layout_onecol
+        layout_settings:
+          label: ''
+        components:
+          064b69b5-3a3b-41d3-8b21-1b116828c469:
+            uuid: 064b69b5-3a3b-41d3-8b21-1b116828c469
+            region: content
+            configuration:
+              id: 'field_block:media:video:thumbnail'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: image
+                label: hidden
+                settings:
+                  image_link: ''
+                  image_style: thumbnail
+                  image_loading:
+                    attribute: lazy
+                third_party_settings: {  }
+            weight: 0
+            additional: {  }
+        third_party_settings: {  }
 _core:
   default_config_hash: _fnkUKwQYHkXO1Ngmq9nE6FqWUNAmkddOxAH1h5aiKg
 id: media.video.media_library
@@ -27,8 +56,8 @@ content:
     type: image
     label: hidden
     settings:
-      image_style: thumbnail
       image_link: ''
+      image_style: thumbnail
       image_loading:
         attribute: lazy
     third_party_settings: {  }
