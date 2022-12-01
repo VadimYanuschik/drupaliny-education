@@ -1,0 +1,4 @@
+services:
+  plugin.manager.hi_mom:
+    class: Drupal\hi_mom\PluginMessagesManager
+    parent: default_plugin_manager

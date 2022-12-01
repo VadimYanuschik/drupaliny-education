@@ -1,0 +1,6 @@
+name: Hi Mom
+description: It's my first plugin for drupaliny.
+
+type: module
+core_version_requirement: ^9.4 || 10
+
