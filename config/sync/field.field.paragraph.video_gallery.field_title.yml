@@ -1,0 +1,21 @@
+uuid: afc09075-eea2-4b63-a169-52aa2b0807f9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_title
+    - paragraphs.paragraphs_type.video_gallery
+  module:
+    - text
+id: paragraph.video_gallery.field_title
+field_name: field_title
+entity_type: paragraph
+bundle: video_gallery
+label: Title
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text

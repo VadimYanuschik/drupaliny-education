@@ -1,0 +1,10 @@
+uuid: 970b48fc-a605-4cef-8f4a-b55722f21bda
+langcode: en
+status: true
+dependencies: {  }
+id: video_gallery
+label: 'Video Gallery'
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }
