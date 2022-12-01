@@ -7,7 +7,6 @@
 
 namespace Drupal\hi_mom\Plugin\PluginMessages;
 
-use Drupal\hi_mom\Annotation\PluginMessages;
 use Drupal\hi_mom\PluginMessagesPluginBase;
 
 /**

@@ -3,7 +3,7 @@
 /**
  * Implements hook_preprocess_page().
  */
-function plugin_messages_preprocess_page(&$variables): void {
+function hi_mom_preprocess_page(&$variables): void {
   $plugin_service = \Drupal::service('plugin.manager.hi_mom');
   foreach ($plugin_service->getDefinitions() as $plugin_id => $plugin) {
     $instance = $plugin_service->createInstance($plugin_id);
@@ -19,7 +19,7 @@ function plugin_messages_preprocess_page(&$variables): void {
     # значит что сообщение нужно выводить везде, а если задано, то только на тех
     # страницах (паттернах) которые указаны. Поддерживаются <front>, node/*.
     if (empty($instance->getPages()) || $path_match) {
-      drupal_set_message($message, $message_type);
+      \Drupal::messenger()->addMessage("migration failed");
     }
   }
 }

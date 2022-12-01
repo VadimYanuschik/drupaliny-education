@@ -5,7 +5,7 @@
  * Пример плагина.
  */
 
-namespace Drupal\plugin_messages\Plugin\PluginMessages;
+namespace Drupal\hi_mom\Plugin\PluginMessages;
 
 use Drupal\hi_mom\PluginMessagesPluginBase;
 
@@ -19,7 +19,7 @@ class DefaultPluginExample2 extends PluginMessagesPluginBase {
   /**
    * Возвращаем сообщение данного плагина.
    */
-  public function getMessage() {
+  public function getMessage(): string {
     return 'This is message from Example #2';
   }
 
