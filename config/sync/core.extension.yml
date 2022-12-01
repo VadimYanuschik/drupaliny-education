@@ -38,6 +38,7 @@ module:
   filter: 0
   help: 0
   help_topics: 0
+  hi_mom: 0
   history: 0
   image: 0
   imagemagick: 0
