@@ -1,0 +1,7 @@
+default_review_form.form:
+  path: '/review'
+  defaults:
+    _title: 'Write a review'
+    _form: '\Drupal\review_form\Form\ReviewForm'
+  requirements:
+    _permission: 'access content'
