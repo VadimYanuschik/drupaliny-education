@@ -2,7 +2,6 @@
 
 namespace Drupal\review_form\Form;
 
-use Drupal;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\HtmlCommand;
 use Drupal\Core\Form\FormBase;
@@ -68,15 +67,15 @@ class ReviewForm extends FormBase {
    * {@inheritDoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
-    if (strlen($form_state->getValue('name')) < 5) {
-      Drupal::messenger()->addError("Name is too short");
+    $form_values = $form_state->getValues();
+
+    if (strlen($form_values['name']) < 5) {
+      $form_state->setErrorByName('name', $this->t('Name is too short'));
     }
 
-    if (strlen($form_state->getValue('review')) < 9) {
-      Drupal::messenger()->addError("Review is too short");
+    if (strlen($form_values['review']) < 9) {
+      $form_state->setErrorByName('review', $this->t('Review is too short'));
     }
-
-    parent::validateForm($form, $form_state);
   }
 
   /**
@@ -85,7 +84,7 @@ class ReviewForm extends FormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $name = $form_state->getValue('name');
 
-    Drupal::messenger()->addMessage("$name, thanks for your review");
+    \Drupal::messenger()->addMessage("$name, thanks for your review");
   }
 
   /**
@@ -95,17 +94,17 @@ class ReviewForm extends FormBase {
     $ajax_response = new AjaxResponse();
     $message = [
       '#theme' => 'status_messages',
-      '#message_list' => Drupal::messenger()->all(),
+      '#message_list' => \Drupal::messenger()->all(),
       '#status_headings' => [
-        'status' => t('Status message'),
-        'error' => t('Error message'),
-        'warning' => t('Warning message'),
+        'status' => $this->t('Status message'),
+        'error' => $this->t('Error message'),
+        'warning' => $this->t('Warning message'),
       ],
     ];
 
-    Drupal::messenger()->deleteAll();
+    \Drupal::messenger()->deleteAll();
 
-    $messages = Drupal::service('renderer')->render($message);
+    $messages = \Drupal::service('renderer')->render($message);
     $ajax_response->addCommand(new HtmlCommand('#form-system-messages', $messages));
     return $ajax_response;
   }
