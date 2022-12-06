@@ -8,6 +8,7 @@ use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\Render\RendererInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class ReviewForm extends FormBase {
 
@@ -24,6 +25,13 @@ class ReviewForm extends FormBase {
   public function __construct(MessengerInterface $messenger, RendererInterface $renderer) {
     $this->messenger = $messenger;
     $this->renderer = $renderer;
+  }
+
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('messenger'),
+      $container->get('renderer'),
+    );
   }
 
   /**
