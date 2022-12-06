@@ -1,0 +1,20 @@
+uuid: e7367e1f-db4a-4237-80ad-17460548fe73
+langcode: en
+status: true
+dependencies:
+  module:
+    - odd_even_minute
+  theme:
+    - olivero
+id: oddevenminutecache
+theme: olivero
+region: content
+weight: -7
+provider: null
+plugin: odd_even_minute_cache
+settings:
+  id: odd_even_minute_cache
+  label: 'Odd even minute cache'
+  label_display: '0'
+  provider: odd_even_minute
+visibility: {  }

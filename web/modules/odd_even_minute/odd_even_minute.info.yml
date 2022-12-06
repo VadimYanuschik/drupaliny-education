@@ -1,0 +1,6 @@
+name: Odd Even Minute
+description: 'Odd Even Minute'
+type: module
+
+core_version_requirement: ^9
+package: Tasks
