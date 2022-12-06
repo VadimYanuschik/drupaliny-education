@@ -1,4 +1,0 @@
-services:
-  plugin.manager.probation:
-    class: Drupal\probation\ParagraphBehaviorManager
-    parent: default_plugin_manager
