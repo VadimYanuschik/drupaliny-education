@@ -6,8 +6,25 @@ use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\HtmlCommand;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Messenger\MessengerInterface;
+use Drupal\Core\Render\RendererInterface;
 
 class ReviewForm extends FormBase {
+
+  /**
+   * @var \Drupal\Core\Messenger\MessengerInterface
+   */
+  protected $messenger;
+
+  /**
+   * @var \Drupal\Core\Render\RendererInterface
+   */
+  protected RendererInterface $renderer;
+
+  public function __construct(MessengerInterface $messenger, RendererInterface $renderer) {
+    $this->messenger = $messenger;
+    $this->renderer = $renderer;
+  }
 
   /**
    * {@inheritDoc}
@@ -84,7 +101,7 @@ class ReviewForm extends FormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $name = $form_state->getValue('name');
 
-    \Drupal::messenger()->addMessage("$name, thanks for your review");
+    $this->messenger->addMessage("$name, thanks for your review");
   }
 
   /**
@@ -94,7 +111,7 @@ class ReviewForm extends FormBase {
     $ajax_response = new AjaxResponse();
     $message = [
       '#theme' => 'status_messages',
-      '#message_list' => \Drupal::messenger()->all(),
+      '#message_list' => $this->messenger()->all(),
       '#status_headings' => [
         'status' => $this->t('Status message'),
         'error' => $this->t('Error message'),
@@ -102,9 +119,9 @@ class ReviewForm extends FormBase {
       ],
     ];
 
-    \Drupal::messenger()->deleteAll();
+    $this->messenger->deleteAll();
 
-    $messages = \Drupal::service('renderer')->render($message);
+    $messages = $this->renderer->render($message);
     $ajax_response->addCommand(new HtmlCommand('#form-system-messages', $messages));
     return $ajax_response;
   }

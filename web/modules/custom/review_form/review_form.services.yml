@@ -1,0 +1,4 @@
+services:
+  review_form:
+    class: \Drupal\review_form\Form\ReviewForm
+    arguments: ['@messenger', '@renderer']
