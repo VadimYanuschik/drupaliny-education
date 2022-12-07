@@ -1,6 +1,9 @@
 services:
+  odd_even_minute.calculate_service:
+    class: \Drupal\odd_even_minute\CalculateOddEvenMinuteService
+    arguments: [ '@datetime.time' ]
   cache_context.odd_even_minute:
     class: \Drupal\odd_even_minute\Cache\Context\OddEvenMinuteCacheContext
-    arguments: ['@datetime.time']
+    arguments: [ '@odd_even_minute.calculate_service' ]
     tags:
       - { name: cache.context }

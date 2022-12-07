@@ -1,5 +1,0 @@
-<?php
-
-function odd_even_minute_check(): bool {
-  return floor((\Drupal::time()->getCurrentTime()) / 60) % 2 === 0;
-}

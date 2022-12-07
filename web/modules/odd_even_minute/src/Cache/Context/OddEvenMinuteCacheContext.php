@@ -2,9 +2,9 @@
 
 namespace Drupal\odd_even_minute\Cache\Context;
 
-use Drupal\Component\Datetime\TimeInterface;
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Cache\Context\CacheContextInterface;
+use Drupal\odd_even_minute\OddEvenMinuteCalculatorInterface;
 
 /**
  * Cache context ID: 'odd_even_request'.
@@ -12,15 +12,15 @@ use Drupal\Core\Cache\Context\CacheContextInterface;
 class OddEvenMinuteCacheContext implements CacheContextInterface {
 
   /**
-   * @var \Drupal\Component\Datetime\TimeInterface
+   * @var \Drupal\odd_even_minute\OddEvenMinuteCalculatorInterface
    */
-  protected TimeInterface $time;
+  protected OddEvenMinuteCalculatorInterface $oddEvenMinuteCalculator;
 
   /**
-   * @param \Drupal\Component\Datetime\TimeInterface $time
+   * @param \Drupal\odd_even_minute\OddEvenMinuteCalculatorInterface $oddEvenMinuteCalculator
    */
-  public function __construct(TimeInterface $time) {
-    $this->time = $time;
+  public function __construct(OddEvenMinuteCalculatorInterface $oddEvenMinuteCalculator) {
+    $this->oddEvenMinuteCalculator = $oddEvenMinuteCalculator;
   }
 
   /**
@@ -30,12 +30,11 @@ class OddEvenMinuteCacheContext implements CacheContextInterface {
     return t('Odd or even minute?');
   }
 
-
   /**
    * {@inheritDoc}
    */
   public function getContext() {
-    return odd_even_minute_check() ? 'even' : 'odd';
+    return $this->oddEvenMinuteCalculator->calculate() ? 'even' : 'odd';
   }
 
   /**
