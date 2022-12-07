@@ -1,4 +1,4 @@
 services:
   task_4.collect_phone:
-    class: Drupal\task_4\Form\CollectPhone
+    class: \Drupal\task_4\Form\CollectPhone
     arguments: [ '@messenger' ]
