@@ -16,6 +16,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class OddEvenMinuteCacheBlock extends BlockBase implements ContainerFactoryPluginInterface {
 
   /**
+   * {@inheritdoc}
    * @var \Drupal\odd_even_minute\OddEvenMinuteCalculatorInterface
    */
   protected $oddEvenMinuteCalculator;
@@ -25,11 +26,15 @@ class OddEvenMinuteCacheBlock extends BlockBase implements ContainerFactoryPlugi
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): static {
     $instance = new static($configuration, $plugin_id, $plugin_definition);
+
     $instance->oddEvenMinuteCalculator = $container->get('odd_even_minute.calculate_service');
 
     return $instance;
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function build(): array {
     return [
       '#theme' => 'odd_even_minute_template',

@@ -7,6 +7,7 @@ use Drupal\Component\Datetime\TimeInterface;
 class OddEvenMinuteCalculatorService implements OddEvenMinuteCalculatorInterface {
 
   /**
+   * {@inheritdoc}
    * @var \Drupal\Component\Datetime\TimeInterface
    */
   protected TimeInterface $dateTime;

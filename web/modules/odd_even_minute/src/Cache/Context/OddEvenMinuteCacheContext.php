@@ -12,6 +12,7 @@ use Drupal\odd_even_minute\OddEvenMinuteCalculatorInterface;
 class OddEvenMinuteCacheContext implements CacheContextInterface {
 
   /**
+   * {@inheritdoc}
    * @var \Drupal\odd_even_minute\OddEvenMinuteCalculatorInterface
    */
   protected OddEvenMinuteCalculatorInterface $oddEvenMinuteCalculator;
@@ -24,14 +25,14 @@ class OddEvenMinuteCacheContext implements CacheContextInterface {
   }
 
   /**
-   * {@inheritDoc}
+   * {@inheritdoc}
    */
   public static function getLabel() {
     return t('Odd or even minute?');
   }
 
   /**
-   * {@inheritDoc}
+   * {@inheritdoc}
    */
   public function getContext() {
     return $this->oddEvenMinuteCalculator->calculate() ? 'even' : 'odd';
