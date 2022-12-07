@@ -6,43 +6,45 @@ use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\HtmlCommand;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\Render\RendererInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+
 
 class ReviewForm extends FormBase {
 
   /**
+   * {@inheritdoc}
    * @var \Drupal\Core\Messenger\MessengerInterface
    */
   protected $messenger;
 
   /**
+   * {@inheritdoc}
    * @var \Drupal\Core\Render\RendererInterface
    */
   protected RendererInterface $renderer;
 
-  public function __construct(MessengerInterface $messenger, RendererInterface $renderer) {
-    $this->messenger = $messenger;
-    $this->renderer = $renderer;
-  }
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container): static {
+    $instance = parent::create($container);
 
-  public static function create(ContainerInterface $container) {
-    return new static(
-      $container->get('messenger'),
-      $container->get('renderer'),
-    );
+    $instance->messenger = $container->get('messenger');
+    $instance->renderer = $container->get('renderer');
+
+    return $instance;
   }
 
   /**
-   * {@inheritDoc}
+   * {@inheritdoc}
    */
   public function getFormId() {
     return 'default_review_form';
   }
 
   /**
-   * {@inheritDoc}
+   * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
 
@@ -89,7 +91,7 @@ class ReviewForm extends FormBase {
   }
 
   /**
-   * {@inheritDoc}
+   * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
     $form_values = $form_state->getValues();
@@ -104,7 +106,7 @@ class ReviewForm extends FormBase {
   }
 
   /**
-   * {@inheritDoc}
+   * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $name = $form_state->getValue('name');
@@ -113,7 +115,7 @@ class ReviewForm extends FormBase {
   }
 
   /**
-   * {@inheritDoc}
+   * {@inheritdoc}
    */
   public function validateAjaxForm(array &$form, FormStateInterface $form_state): AjaxResponse {
     $ajax_response = new AjaxResponse();

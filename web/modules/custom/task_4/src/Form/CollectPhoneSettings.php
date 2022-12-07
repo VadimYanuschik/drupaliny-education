@@ -27,6 +27,8 @@ class CollectPhoneSettings extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state): array {
+    $form = parent::buildForm($form, $form_state);
+
     $config = $this->config('task_4.collect_phone.settings');
 
     $form['default_phone_number'] = [
@@ -35,7 +37,7 @@ class CollectPhoneSettings extends ConfigFormBase {
       '#default_value' => $config->get('phone_number'),
     ];
 
-    return parent::buildForm($form, $form_state);
+    return $form;
   }
 
   /**

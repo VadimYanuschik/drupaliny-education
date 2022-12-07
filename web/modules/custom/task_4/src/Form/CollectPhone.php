@@ -4,24 +4,25 @@ namespace Drupal\task_4\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Messenger\MessengerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class CollectPhone extends FormBase {
 
   /**
+   * {@inheritdoc}
    * @var \Drupal\Core\Messenger\MessengerInterface
    */
   protected $messenger;
 
-  public function __construct(MessengerInterface $messenger) {
-    $this->messenger = $messenger;
-  }
-
+  /**
+   * {@inheritdoc}
+   */
   public static function create(ContainerInterface $container): static {
-    return new static(
-      $container->get('messenger'),
-    );
+    $instance = parent::create($container);
+
+    $instance->messenger = $container->get('messenger');
+
+    return $instance;
   }
 
   /**
@@ -32,7 +33,7 @@ class CollectPhone extends FormBase {
   }
 
   /**
-   * {@inheritDoc}
+   * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $form['phone_number'] = [
