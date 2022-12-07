@@ -5,6 +5,7 @@ namespace Drupal\odd_even_minute\Plugin\Block;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\odd_even_minute\OddEvenMinuteCalculatorInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -19,7 +20,7 @@ class OddEvenMinuteCacheBlock extends BlockBase implements ContainerFactoryPlugi
    * {@inheritdoc}
    * @var \Drupal\odd_even_minute\OddEvenMinuteCalculatorInterface
    */
-  protected $oddEvenMinuteCalculator;
+  protected OddEvenMinuteCalculatorInterface $oddEvenMinuteCalculator;
 
   /**
    * {@inheritdoc}
