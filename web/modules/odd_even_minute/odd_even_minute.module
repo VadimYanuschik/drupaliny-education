@@ -9,6 +9,7 @@ function odd_even_minute_theme($existing, $type, $theme, $path): array {
       'variables' => [
         'text' => NULL,
       ],
+      'file' => 'odd_even_minute.theme.inc',
     ],
   ];
 }
