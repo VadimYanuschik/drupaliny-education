@@ -5,6 +5,12 @@ dependencies:
   config:
     - field.storage.node.field_content
     - node.type.article
+    - paragraphs.paragraphs_type.gallery
+    - paragraphs.paragraphs_type.image
+    - paragraphs.paragraphs_type.image_with_text
+    - paragraphs.paragraphs_type.text
+    - paragraphs.paragraphs_type.video_gallery
+    - paragraphs.paragraphs_type.video_youtube_
   module:
     - entity_reference_revisions
 id: node.article.field_content
@@ -20,6 +26,31 @@ default_value_callback: ''
 settings:
   handler: 'default:paragraph'
   handler_settings:
-    target_bundles: null
+    target_bundles:
+      gallery: gallery
+      image: image
+      image_with_text: image_with_text
+      text: text
+      video_gallery: video_gallery
+      video_youtube_: video_youtube_
     negate: 0
+    target_bundles_drag_drop:
+      gallery:
+        weight: 7
+        enabled: true
+      image:
+        weight: 8
+        enabled: true
+      image_with_text:
+        weight: 9
+        enabled: true
+      text:
+        weight: 10
+        enabled: true
+      video_gallery:
+        weight: 11
+        enabled: true
+      video_youtube_:
+        weight: 12
+        enabled: true
 field_type: entity_reference_revisions

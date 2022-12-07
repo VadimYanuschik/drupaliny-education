@@ -1,0 +1,32 @@
+uuid: 971d97a5-aba4-452e-89d6-ab0ebfd2c869
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.video_gallery.field_title
+    - field.field.paragraph.video_gallery.field_video
+    - paragraphs.paragraphs_type.video_gallery
+  module:
+    - text
+id: paragraph.video_gallery.default
+targetEntityType: paragraph
+bundle: video_gallery
+mode: default
+content:
+  field_title:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_video:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: true
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden: {  }
