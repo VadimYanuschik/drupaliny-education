@@ -32,7 +32,8 @@ class OddEvenMinuteCacheBlock extends BlockBase implements ContainerFactoryPlugi
 
   public function build(): array {
     return [
-      '#markup' => $this->oddEvenMinuteCalculator->calculate() ? 'even 1' : 'odd 2',
+      '#theme' => 'odd_even_minute_template',
+      '#text' => $this->oddEvenMinuteCalculator->calculate() ? 'even 1' : 'odd 2'
     ];
   }
 

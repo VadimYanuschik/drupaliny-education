@@ -1,6 +1,6 @@
 services:
   odd_even_minute.calculate_service:
-    class: Drupal\odd_even_minute\CalculateOddEvenMinuteService
+    class: Drupal\odd_even_minute\OddEvenMinuteCalculatorService
     arguments: [ '@datetime.time' ]
   cache_context.odd_even_minute:
     class: Drupal\odd_even_minute\Cache\Context\OddEvenMinuteCacheContext
