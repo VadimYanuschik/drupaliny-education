@@ -88,4 +88,5 @@ module:
 theme:
   olivero: 0
   claro: 0
+  subtheme: 0
 profile: standard
