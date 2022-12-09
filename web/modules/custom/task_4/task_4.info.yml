@@ -1,0 +1,6 @@
+name: Task 4 (work with Form API)
+description: Task 4 (work with Form API)
+type: module
+core_version_requirement: ^9
+package: Task 4
+configure: collect_phone.admin_settings

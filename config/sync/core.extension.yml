@@ -63,6 +63,7 @@ module:
   redirect: 0
   redirect_404: 0
   redirect_domain: 0
+  review_form: 0
   robotstxt: 0
   scheduler: 0
   search: 0
@@ -71,6 +72,7 @@ module:
   sophron_guesser: 0
   swiftmailer: 0
   system: 0
+  task_4: 0
   taxonomy: 0
   text: 0
   token: 0

@@ -1,0 +1,15 @@
+collect_phone.form:
+  path: '/collect-phone'
+  defaults:
+    _title: 'Collect Phone - FORM API EXAMPLE'
+    _form: '\Drupal\task_4\Form\CollectPhone'
+  requirements:
+    _permission: 'access content'
+
+collect_phone.admin_settings:
+  path: '/admin/config/task_4'
+  defaults:
+    _title: 'Settings for CollectPhone form.'
+    _form: '\Drupal\task_4\Form\CollectPhoneSettings'
+  requirements:
+    _permission: 'administer site configurator'
