@@ -31,8 +31,10 @@ class CustomCssClass extends ParagraphsBehaviorBase {
    * {@inheritdoc}
    */
   public function view(array &$build, Paragraph $paragraph, EntityViewDisplayInterface $display, $view_mode) {
-    if ($css_class = $paragraph->getBehaviorSetting($this->getPluginId(), 'css_class')) {
-      $build['#attributes']['class'][] = Html::getClass($css_class);
+    if ($css_classes = $this->getCssClasses($paragraph)) {
+      array_map(function ($css_class) use (&$build) {
+        $build['#attributes']['class'][] = Html::getClass($css_class);
+      }, $css_classes);
     }
   }
 
@@ -56,6 +58,17 @@ class CustomCssClass extends ParagraphsBehaviorBase {
   public function settingsSummary(Paragraph $paragraph): array {
     $css_class = $paragraph->getBehaviorSetting($this->getPluginId(), 'css_class');
     return [$css_class ? $this->t('Current css class: @element', ['@element' => $css_class]) : ''];
+  }
+
+  /**
+   * Split string of css classes
+   *
+   * @param \Drupal\paragraphs\Entity\Paragraph $paragraph
+   *
+   * @return array
+   */
+  private function getCssClasses(Paragraph $paragraph): array {
+    return explode(',', $paragraph->getBehaviorSetting($this->getPluginId(), 'css_class'));
   }
 
 }
