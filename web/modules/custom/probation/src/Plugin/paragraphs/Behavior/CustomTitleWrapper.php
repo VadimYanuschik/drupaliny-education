@@ -43,7 +43,7 @@ class CustomTitleWrapper extends ParagraphsBehaviorBase {
       '#options' => $this->getTitleWrappers(),
       '#title' => $this->t('Title wrapper'),
       '#description' => $this->t('Change title wrapper'),
-      '#default_value' => $paragraph->getBehaviorSetting($this->getPluginId(), 'title_wrapper', $this->getTitleWrappers()[0]),
+      '#default_value' => $paragraph->getBehaviorSetting($this->getPluginId(), 'title_wrapper', 'h1'),
     ];
 
     return $form;
@@ -53,8 +53,8 @@ class CustomTitleWrapper extends ParagraphsBehaviorBase {
    * {@inheritdoc}
    */
   public function settingsSummary(Paragraph $paragraph): array {
-    $css_class = $paragraph->getBehaviorSetting($this->getPluginId(), 'css_class');
-    return [$css_class ? $this->t('Current title wrapper: @element', ['@element' => $css_class]) : ''];
+    $title_wrapper = $paragraph->getBehaviorSetting($this->getPluginId(), 'title_wrapper');
+    return [$title_wrapper ? $this->t('Current title wrapper: @element', ['@element' => $title_wrapper]) : ''];
   }
 
   /**

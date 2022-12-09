@@ -12,3 +12,7 @@ description: ''
 behavior_plugins:
   probation_custom_css_class:
     enabled: true
+  probation_custom_title_position:
+    enabled: true
+  probation_custom_title_wrapper:
+    enabled: true
