@@ -14,12 +14,14 @@ class ReviewForm extends FormBase {
 
   /**
    * Define messenger service to printing messages
+   *
    * @var \Drupal\Core\Messenger\MessengerInterface
    */
   protected $messenger;
 
   /**
    * Define renderer service to render html markup
+   *
    * @var \Drupal\Core\Render\RendererInterface
    */
   protected RendererInterface $renderer;

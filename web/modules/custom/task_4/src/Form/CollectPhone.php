@@ -9,7 +9,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class CollectPhone extends FormBase {
 
   /**
-   * {@inheritdoc}
+   * Define messenger service to printing messages
+   *
    * @var \Drupal\Core\Messenger\MessengerInterface
    */
   protected $messenger;
@@ -19,7 +20,6 @@ class CollectPhone extends FormBase {
    */
   public static function create(ContainerInterface $container): static {
     $instance = parent::create($container);
-
     $instance->messenger = $container->get('messenger');
 
     return $instance;
