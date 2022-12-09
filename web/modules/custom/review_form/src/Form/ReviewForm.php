@@ -13,13 +13,13 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class ReviewForm extends FormBase {
 
   /**
-   * {@inheritdoc}
+   * Define messenger service to printing messages
    * @var \Drupal\Core\Messenger\MessengerInterface
    */
   protected $messenger;
 
   /**
-   * {@inheritdoc}
+   * Define renderer service to render html markup
    * @var \Drupal\Core\Render\RendererInterface
    */
   protected RendererInterface $renderer;
@@ -29,7 +29,6 @@ class ReviewForm extends FormBase {
    */
   public static function create(ContainerInterface $container): static {
     $instance = parent::create($container);
-
     $instance->messenger = $container->get('messenger');
     $instance->renderer = $container->get('renderer');
 
@@ -132,7 +131,9 @@ class ReviewForm extends FormBase {
     $this->messenger->deleteAll();
 
     $messages = $this->renderer->render($message);
+
     $ajax_response->addCommand(new HtmlCommand('#form-system-messages', $messages));
+
     return $ajax_response;
   }
 
