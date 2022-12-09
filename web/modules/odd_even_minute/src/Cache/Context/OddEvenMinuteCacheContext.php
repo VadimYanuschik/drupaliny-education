@@ -13,6 +13,7 @@ class OddEvenMinuteCacheContext implements CacheContextInterface {
 
   /**
    * {@inheritdoc}
+   *
    * @var \Drupal\odd_even_minute\OddEvenMinuteCalculatorInterface
    */
   protected OddEvenMinuteCalculatorInterface $oddEvenMinuteCalculator;

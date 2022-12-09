@@ -18,6 +18,7 @@ class OddEvenMinuteCacheBlock extends BlockBase implements ContainerFactoryPlugi
 
   /**
    * {@inheritdoc}
+   *
    * @var \Drupal\odd_even_minute\OddEvenMinuteCalculatorInterface
    */
   protected OddEvenMinuteCalculatorInterface $oddEvenMinuteCalculator;
@@ -27,7 +28,6 @@ class OddEvenMinuteCacheBlock extends BlockBase implements ContainerFactoryPlugi
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): static {
     $instance = new static($configuration, $plugin_id, $plugin_definition);
-
     $instance->oddEvenMinuteCalculator = $container->get('odd_even_minute.calculate_service');
 
     return $instance;

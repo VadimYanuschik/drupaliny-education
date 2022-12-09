@@ -9,6 +9,7 @@ interface OddEvenMinuteCalculatorInterface {
 
   /**
    * Make calculation based on current time
+   *
    * @return bool
    */
   public function calculate(): bool;

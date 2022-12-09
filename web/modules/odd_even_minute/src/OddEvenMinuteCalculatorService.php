@@ -8,6 +8,7 @@ class OddEvenMinuteCalculatorService implements OddEvenMinuteCalculatorInterface
 
   /**
    * {@inheritdoc}
+   *
    * @var \Drupal\Component\Datetime\TimeInterface
    */
   protected TimeInterface $dateTime;
