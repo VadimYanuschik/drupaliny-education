@@ -29,9 +29,7 @@ class CustomTitleWrapper extends ParagraphsBehaviorBase {
   /**
    * {@inheritdoc}
    */
-  public function view(array &$build, Paragraph $paragraph, EntityViewDisplayInterface $display, $view_mode) {
-    // TODO: Implement view() method.
-  }
+  public function view(array &$build, Paragraph $paragraph, EntityViewDisplayInterface $display, $view_mode) {}
 
   /**
    * {@inheritdoc}
