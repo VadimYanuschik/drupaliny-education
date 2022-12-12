@@ -56,29 +56,9 @@
 ]
 %}
 
-{% if label_hidden %}
-  {% if multiple %}
-    <div{{ attributes.addClass(classes, 'field__items') }}>
-      {% for item in items %}
-        <{{ title_element }}{{ item.attributes.addClass('field__item') }}>{{ item.content }}</{{ title_element }}>
-      {% endfor %}
-    </div>
-  {% else %}
-    {% for item in items %}
-      <{{ title_element }}{{ attributes.addClass(classes, 'field__item') }}>{{ item.content }}</{{ title_element }}>
-    {% endfor %}
-  {% endif %}
-{% else %}
-  <div{{ attributes.addClass(classes) }}>
-    <div{{ title_attributes.addClass(title_classes) }}>{{ label }}</div>
-    {% if multiple %}
-    <div class="field__items">
-    {% endif %}
-      {% for item in items %}
-        <{{ title_element }}{{ item.attributes.addClass('field__item') }}>{{ item.content }}</{{ title_element }}>
-      {% endfor %}
-    {% if multiple %}
-    </div>
-    {% endif %}
-  </div>
-{% endif %}
+<div{{ attributes.addClass(classes) }}>
+  {% for item in items %}
+    <{{ title_element }}{{ item.attributes.addClass('field__item') }}>{{ item.content }}</{{ title_element }}>
+  {% endfor %}
+</div>
+

@@ -26,6 +26,9 @@ class CustomTitlePosition extends ParagraphsBehaviorBase {
     return TRUE;
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function view(array &$build, Paragraph $paragraph, EntityViewDisplayInterface $display, $view_mode) {
     if ($paragraph->getBehaviorSetting($this->getPluginId(), 'is_bolded')) {
       $build['#attributes']['class'][] = 'text-bold';

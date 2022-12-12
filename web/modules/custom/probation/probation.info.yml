@@ -1,7 +1,6 @@
 name: Probation
 description: Changing paragraphs behavior
 package: Custom Paragraphs
-
 type: module
 core_version_requirement: ^9
 dependencies:
