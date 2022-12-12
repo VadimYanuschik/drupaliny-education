@@ -3,3 +3,4 @@ description: 'Odd Even Minute'
 type: module
 core_version_requirement: ^9
 package: Tasks
+configure: odd_even_minute.admin_cache_settings
