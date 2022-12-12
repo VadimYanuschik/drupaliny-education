@@ -17,13 +17,15 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class OddEvenMinuteCacheBlock extends BlockBase implements ContainerFactoryPluginInterface {
 
   /**
-   * {@inheritdoc}
+   * Odd Even Minute Calculator service
    *
    * @var \Drupal\odd_even_minute\OddEvenMinuteCalculatorInterface
    */
   protected OddEvenMinuteCalculatorInterface $oddEvenMinuteCalculator;
 
   /**
+   * The constructor for Odd Even Minute Calculator service
+   *
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): static {

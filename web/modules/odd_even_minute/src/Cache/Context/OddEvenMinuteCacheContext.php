@@ -12,13 +12,15 @@ use Drupal\odd_even_minute\OddEvenMinuteCalculatorInterface;
 class OddEvenMinuteCacheContext implements CacheContextInterface {
 
   /**
-   * {@inheritdoc}
+   * Odd Even Minute Calculator service
    *
    * @var \Drupal\odd_even_minute\OddEvenMinuteCalculatorInterface
    */
   protected OddEvenMinuteCalculatorInterface $oddEvenMinuteCalculator;
 
   /**
+   * The constructor for Odd Even Minute Calculator service
+   *
    * @param \Drupal\odd_even_minute\OddEvenMinuteCalculatorInterface $oddEvenMinuteCalculator
    */
   public function __construct(OddEvenMinuteCalculatorInterface $oddEvenMinuteCalculator) {
