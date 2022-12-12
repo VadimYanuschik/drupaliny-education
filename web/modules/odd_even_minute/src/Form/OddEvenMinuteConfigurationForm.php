@@ -2,11 +2,32 @@
 
 namespace Drupal\odd_even_minute\Form;
 
+use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 
 
 class OddEvenMinuteConfigurationForm extends ConfigFormBase {
+
+  /**
+   * The Entity Type Manager class
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected EntityTypeManagerInterface $entityTypeManager;
+
+  /**
+   * The constructor for Entity Type Manager class
+   *
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   */
+  public function __construct(ConfigFactoryInterface $config_factory, EntityTypeManagerInterface $entity_type_manager) {
+    parent::__construct($config_factory);
+
+    $this->entityTypeManager = $entity_type_manager;
+  }
 
   /**
    * {@inheritdoc}

@@ -7,3 +7,6 @@ services:
     arguments: [ '@odd_even_minute.calculate_service' ]
     tags:
       - { name: cache.context }
+  odd_even_minute.odd_even_minute_configuration_form:
+    class: Drupal\odd_even_minute\Form\OddEvenMinuteConfigurationForm
+    arguments: ['@entity_type.manager']
