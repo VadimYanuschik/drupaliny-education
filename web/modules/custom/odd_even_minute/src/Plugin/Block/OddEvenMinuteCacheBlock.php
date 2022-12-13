@@ -86,7 +86,11 @@ class OddEvenMinuteCacheBlock extends BlockBase implements ContainerFactoryPlugi
   public function getCacheTags(): array {
     return Cache::mergeTags(
       parent::getCacheTags(),
-      ['config:odd_even_minute.admin_cache_settings']
+      [
+        "config:odd_even_minute.admin_cache_settings",
+        "node:{$this->config->get('field_odd')}",
+        "node:{$this->config->get('field_even')}"
+      ]
     );
   }
 
