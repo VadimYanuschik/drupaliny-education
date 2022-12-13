@@ -7,7 +7,7 @@ use Drupal\Core\Cache\Context\CacheContextInterface;
 use Drupal\odd_even_minute\OddEvenMinuteCalculatorInterface;
 
 /**
- * Cache context ID: 'odd_even_request'.
+ * Cache context ID: 'odd_even_minute'.
  */
 class OddEvenMinuteCacheContext implements CacheContextInterface {
 
@@ -38,7 +38,7 @@ class OddEvenMinuteCacheContext implements CacheContextInterface {
    * {@inheritdoc}
    */
   public function getContext() {
-    return $this->oddEvenMinuteCalculator->calculate() ? 'even' : 'odd';
+    return $this->oddEvenMinuteCalculator->calculate() ? 'odd' : 'even';
   }
 
   /**

@@ -2,11 +2,10 @@
 
 namespace Drupal\odd_even_minute\Form;
 
-use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
-
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class OddEvenMinuteConfigurationForm extends ConfigFormBase {
 
@@ -18,15 +17,16 @@ class OddEvenMinuteConfigurationForm extends ConfigFormBase {
   protected EntityTypeManagerInterface $entityTypeManager;
 
   /**
-   * The constructor for Entity Type Manager class
+   * Add following dependencies:
+   * - Drupal Entity Type Manager service
    *
-   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
-   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   * {@inheritdoc}
    */
-  public function __construct(ConfigFactoryInterface $config_factory, EntityTypeManagerInterface $entity_type_manager) {
-    parent::__construct($config_factory);
+  public static function create(ContainerInterface $container): static {
+    $instance = parent::create($container);
+    $instance->entityTypeManager = $container->get('entity_type.manager');
 
-    $this->entityTypeManager = $entity_type_manager;
+    return $instance;
   }
 
   /**
@@ -51,22 +51,33 @@ class OddEvenMinuteConfigurationForm extends ConfigFormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
     $form = parent::buildForm($form, $form_state);
 
-    $config = $this->config('odd_even_minute.admin_cache_settings');
+    $field_odd = $this->config('odd_even_minute.admin_cache_settings')
+      ->get('field_odd');
+    $field_even = $this->config('odd_even_minute.admin_cache_settings')
+      ->get('field_even');
 
-    $v = $config->get('field_odd');
+    if ($field_odd) {
+      $field_odd = $this->entityTypeManager->getStorage('node')
+        ->load($field_odd);
+    }
+
+    if ($field_even) {
+      $field_even = $this->entityTypeManager->getStorage('node')
+        ->load($field_even);
+    }
 
     $form['field_odd'] = [
       '#type' => 'entity_autocomplete',
       '#target_type' => 'node',
       '#tags' => FALSE,
-      '#default_value' => $config->get('field_odd'),
+      '#default_value' => $field_odd,
     ];
 
     $form['field_even'] = [
       '#type' => 'entity_autocomplete',
       '#target_type' => 'node',
       '#tags' => FALSE,
-      '#default_value' => $config->get('field_even'),
+      '#default_value' => $field_even,
     ];
 
     return $form;

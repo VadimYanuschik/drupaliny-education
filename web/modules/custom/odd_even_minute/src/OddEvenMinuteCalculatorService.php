@@ -26,7 +26,7 @@ class OddEvenMinuteCalculatorService implements OddEvenMinuteCalculatorInterface
    * {@inheritdoc}
    */
   public function calculate(): bool {
-    return floor(($this->dateTime->getCurrentTime()) / 60) % 2 === 0;
+    return floor(($this->dateTime->getCurrentTime()) / 60) % 2 === 1;
   }
 
 }
