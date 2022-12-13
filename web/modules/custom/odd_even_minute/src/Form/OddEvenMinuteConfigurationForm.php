@@ -17,9 +17,6 @@ class OddEvenMinuteConfigurationForm extends ConfigFormBase {
   protected EntityTypeManagerInterface $entityTypeManager;
 
   /**
-   * Add following dependencies:
-   * - Drupal Entity Type Manager service
-   *
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container): static {
