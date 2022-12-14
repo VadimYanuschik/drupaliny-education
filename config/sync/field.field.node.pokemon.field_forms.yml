@@ -1,0 +1,29 @@
+uuid: 569ab359-770e-4d6b-b1c8-477083a5520c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_forms
+    - node.type.pokemon
+    - taxonomy.vocabulary.forms
+id: node.pokemon.field_forms
+field_name: field_forms
+entity_type: node
+bundle: pokemon
+label: Forms
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      forms: forms
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

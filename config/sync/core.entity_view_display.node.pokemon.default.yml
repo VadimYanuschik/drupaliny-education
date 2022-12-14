@@ -1,0 +1,139 @@
+uuid: 7b761da4-134a-40dd-b7dc-71b00f07d760
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.pokemon.field_abilities
+    - field.field.node.pokemon.field_base_experience
+    - field.field.node.pokemon.field_colors
+    - field.field.node.pokemon.field_egg_groups
+    - field.field.node.pokemon.field_forms
+    - field.field.node.pokemon.field_genders
+    - field.field.node.pokemon.field_habitats
+    - field.field.node.pokemon.field_height
+    - field.field.node.pokemon.field_name
+    - field.field.node.pokemon.field_shapes
+    - field.field.node.pokemon.field_species
+    - field.field.node.pokemon.field_types
+    - field.field.node.pokemon.field_weight
+    - node.type.pokemon
+  module:
+    - text
+    - user
+id: node.pokemon.default
+targetEntityType: node
+bundle: pokemon
+mode: default
+content:
+  field_abilities:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 105
+    region: content
+  field_base_experience:
+    type: number_integer
+    label: hidden
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 102
+    region: content
+  field_colors:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 106
+    region: content
+  field_egg_groups:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 107
+    region: content
+  field_forms:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 108
+    region: content
+  field_genders:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 109
+    region: content
+  field_habitats:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 110
+    region: content
+  field_height:
+    type: number_integer
+    label: hidden
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 103
+    region: content
+  field_name:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  field_shapes:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 111
+    region: content
+  field_species:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 112
+    region: content
+  field_types:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 113
+    region: content
+  field_weight:
+    type: number_integer
+    label: hidden
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 104
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden: {  }

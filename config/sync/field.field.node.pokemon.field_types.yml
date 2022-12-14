@@ -1,0 +1,29 @@
+uuid: 5c9596d8-fc4a-4b77-bb1b-0a3779f8867e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_types
+    - node.type.pokemon
+    - taxonomy.vocabulary.types
+id: node.pokemon.field_types
+field_name: field_types
+entity_type: node
+bundle: pokemon
+label: Types
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      types: types
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

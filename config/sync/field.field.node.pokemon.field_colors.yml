@@ -1,0 +1,29 @@
+uuid: d3fa9ab3-f87d-4107-be11-bc890723d399
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_colors
+    - node.type.pokemon
+    - taxonomy.vocabulary.colors
+id: node.pokemon.field_colors
+field_name: field_colors
+entity_type: node
+bundle: pokemon
+label: Colors
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      colors: colors
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference
