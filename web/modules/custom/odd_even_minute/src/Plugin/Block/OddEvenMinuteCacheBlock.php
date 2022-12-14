@@ -89,7 +89,7 @@ class OddEvenMinuteCacheBlock extends BlockBase implements ContainerFactoryPlugi
       [
         "config:odd_even_minute.admin_cache_settings",
         "node:{$this->config->get('field_odd')}",
-        "node:{$this->config->get('field_even')}"
+        "node:{$this->config->get('field_even')}",
       ]
     );
   }
@@ -102,22 +102,16 @@ class OddEvenMinuteCacheBlock extends BlockBase implements ContainerFactoryPlugi
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
   private function getConfigNode(): ?EntityInterface {
-    $isOddMinute = $this->oddEvenMinuteCalculator->calculate();
+    $is_odd_minute = $this->oddEvenMinuteCalculator->calculate();
+    $needed_node_id = $is_odd_minute ? $this->config->get('field_odd') : $this->config->get('field_even');
 
-    $field_odd = $this->config->get('field_odd');
-    $field_even = $this->config->get('field_even');
-
-    if ($isOddMinute && $field_odd) {
+    $node = NULL;
+    if ($needed_node_id) {
       $node = $this->entityTypeManager->getStorage('node')
-        ->load($field_odd);
+        ->load($needed_node_id);
     }
 
-    if (!$isOddMinute && $field_even) {
-      $node = $this->entityTypeManager->getStorage('node')
-        ->load($field_even);
-    }
-
-    return $node ?: NULL;
+    return $node;
   }
 
 }
