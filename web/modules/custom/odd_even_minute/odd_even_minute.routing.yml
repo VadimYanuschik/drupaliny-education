@@ -1,0 +1,7 @@
+odd_even_minute.admin_cache_settings:
+  path: '/admin/config/odd_even_minute'
+  defaults:
+    _form: '\Drupal\odd_even_minute\Form\OddEvenMinuteConfigurationForm'
+    _title: 'odd_even_minute config screen'
+  requirements:
+    _permission: 'administer site configuration'

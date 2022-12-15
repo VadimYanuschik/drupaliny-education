@@ -1,0 +1,5 @@
+odd_even_minute_styling:
+  version: 1.x
+  css:
+    theme:
+      css/odd_even_minute_styles.css: { }
