@@ -1,0 +1,15 @@
+services:
+  odd_even_minute.calculate_service:
+    class: Drupal\odd_even_minute\OddEvenMinuteCalculatorService
+    arguments: [ '@datetime.time' ]
+  cache_context.odd_even_minute:
+    class: Drupal\odd_even_minute\Cache\Context\OddEvenMinuteCacheContext
+    arguments: [ '@odd_even_minute.calculate_service' ]
+    tags:
+      - { name: cache.context }
+  odd_even_minute.odd_even_minute_configuration_form:
+    class: Drupal\odd_even_minute\Form\OddEvenMinuteConfigurationForm
+    arguments: ['@entity_type.manager']
+  odd_even_minute.odd_even_minute_cache_block:
+    class: Drupal\odd_even_minute\Plugin\Block\OddEvenMinuteCacheBlock
+    arguments: ['@odd_even_minute.calculate_service', '@config.factory', '@entity_type.manager']

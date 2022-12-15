@@ -24,7 +24,6 @@ module:
   ctools_entity_mask: 0
   datetime: 0
   dblog: 0
-  dynamic_page_cache: 0
   editor: 0
   entity_reference_revisions: 0
   field: 0
@@ -55,11 +54,13 @@ module:
   migrate_drupal_ui: 0
   mysql: 0
   node: 0
+  odd_even_minute: 0
   options: 0
   page_cache: 0
   paragraphs_type_permissions: 0
   path: 0
   path_alias: 0
+  probation: 0
   rdf: 0
   redirect: 0
   redirect_404: 0
@@ -92,4 +93,5 @@ module:
 theme:
   olivero: 0
   claro: 0
+  subtheme: 0
 profile: standard

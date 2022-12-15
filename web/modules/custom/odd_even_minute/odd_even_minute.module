@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * Implements hook_theme().
+ */
+function odd_even_minute_theme($existing, $type, $theme, $path): array {
+  return [
+    'odd_even_minute_template' => [
+      'variables' => [
+        'rendered_node' => NULL
+      ],
+      'file' => 'odd_even_minute.theme.inc',
+    ],
+  ];
+}

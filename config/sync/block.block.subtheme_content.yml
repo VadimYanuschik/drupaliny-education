@@ -1,17 +1,17 @@
-uuid: 4eae68f6-0b32-4789-b9f5-e8faafae6f83
+uuid: 0afdfdac-1efb-40ca-b0df-0023b20d77b5
 langcode: en
 status: true
 dependencies:
   module:
     - system
   theme:
-    - olivero
+    - subtheme
 _core:
   default_config_hash: erQSEZF2XUjNmgTl0uNRBzmg18ZGXwUcw2FhApoeuHk
-id: olivero_content
-theme: olivero
+id: subtheme_content
+theme: subtheme
 region: content
-weight: -6
+weight: 0
 provider: null
 plugin: system_main_block
 settings:
