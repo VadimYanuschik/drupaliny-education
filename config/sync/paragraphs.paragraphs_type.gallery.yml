@@ -1,10 +1,18 @@
 uuid: 2e35cd71-c587-4c8f-870f-d2b8ad8bb251
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - probation
 id: gallery
 label: Gallery
 icon_uuid: null
 icon_default: null
 description: ''
-behavior_plugins: {  }
+behavior_plugins:
+  probation_custom_css_class:
+    enabled: true
+  probation_custom_title_position:
+    enabled: true
+  probation_custom_title_wrapper:
+    enabled: true
