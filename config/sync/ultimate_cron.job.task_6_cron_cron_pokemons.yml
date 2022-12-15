@@ -1,0 +1,17 @@
+uuid: 5cd787c7-1922-4c71-a03c-9ae4db536432
+langcode: en
+status: true
+dependencies:
+  module:
+    - task_6_cron
+title: 'Cron for Pokemons'
+id: task_6_cron_cron_pokemons
+weight: -7
+module: task_6_cron
+callback: task_6_cron_cron_pokemons_callback
+scheduler:
+  id: simple
+launcher:
+  id: serial
+logger:
+  id: database

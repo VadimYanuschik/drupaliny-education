@@ -1,0 +1,17 @@
+uuid: 16be5608-5bd1-4687-8973-4cdba217f946
+langcode: en
+status: true
+dependencies:
+  module:
+    - task_6_cron
+title: 'Default cron handler'
+id: task_6_cron_cron
+weight: -10
+module: task_6_cron
+callback: task_6_cron_cron
+scheduler:
+  id: simple
+launcher:
+  id: serial
+logger:
+  id: database

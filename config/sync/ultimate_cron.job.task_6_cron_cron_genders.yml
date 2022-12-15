@@ -1,0 +1,17 @@
+uuid: f5dec6f1-2bd1-4ac1-b29a-852fb214a5ce
+langcode: en
+status: true
+dependencies:
+  module:
+    - task_6_cron
+title: 'Cron for genders'
+id: task_6_cron_cron_genders
+weight: 0
+module: task_6_cron
+callback: task_6_cron_cron_genders_callback
+scheduler:
+  id: simple
+launcher:
+  id: serial
+logger:
+  id: database
