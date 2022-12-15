@@ -1,0 +1,16 @@
+uuid: 98d16d01-5b4c-4d39-8ae5-e93feff277aa
+langcode: en
+status: true
+dependencies: {  }
+id: habitats_queue
+label: 'Habitats Queue'
+backend: database
+backend_configuration:
+  lease_time: 300
+processor: cron
+processing_time: 90
+locked: false
+threshold:
+  type: 0
+  limit: 0
+  state: all

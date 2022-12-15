@@ -1,0 +1,16 @@
+uuid: 63e29ba7-0274-4ee0-a1dd-97814658c68c
+langcode: en
+status: true
+dependencies: {  }
+id: shapes_queue
+label: 'Shapes Queue'
+backend: database
+backend_configuration:
+  lease_time: 300
+processor: cron
+processing_time: 90
+locked: false
+threshold:
+  type: 0
+  limit: 0
+  state: all

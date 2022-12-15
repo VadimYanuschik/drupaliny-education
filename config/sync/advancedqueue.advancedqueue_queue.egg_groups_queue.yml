@@ -1,0 +1,16 @@
+uuid: 1f97ae44-94a5-4a1f-a80b-e18d2d86e317
+langcode: en
+status: true
+dependencies: {  }
+id: egg_groups_queue
+label: 'Egg Groups Queue'
+backend: database
+backend_configuration:
+  lease_time: 300
+processor: cron
+processing_time: 90
+locked: false
+threshold:
+  type: 0
+  limit: 0
+  state: all
