@@ -1,71 +1,168 @@
 <?php
 
+use Drupal\advancedqueue\Entity\Queue;
+use Drupal\advancedqueue\Job;
+use Drupal\Component\Serialization\Json;
+use PokePHP\PokeApi;
+
+$pokemonApi = new PokeApi();
+
 /**
  * Callback cron for pokemons
  */
 function task_6_cron_cron_pokemons_callback(): void {
-  \Drupal::logger('custom_utility')->notice('pokemons');
+  $pokemons = Json::decode((new PokeApi())->pokemon(''));
+
+  if (isset($pokemons)) {
+    $queue = Queue::load('pokemons_queue');
+
+    foreach ($pokemons as $pokemon) {
+      $job = Job::create('pokemon_upload_job', ['pokemon' => $pokemon]);
+      $queue->enqueueJob($job);
+    }
+  }
 }
 
 /**
  * Callback cron for abilities
  */
 function task_6_cron_cron_abilities_callback(): void {
-  \Drupal::logger('custom_utility')->notice('abilities');
+  $abilities = Json::decode((new PokeApi())->ability(''));
+
+  if (isset($abilities)) {
+    $queue = Queue::load('abilities_queue');
+
+    foreach ($abilities as $ability) {
+      $job = Job::create('ability_upload_job', ['ability' => $ability]);
+      $queue->enqueueJob($job);
+    }
+  }
 }
 
 /**
  * Callback cron for colors
  */
 function task_6_cron_cron_colors_callback(): void {
-  \Drupal::logger('custom_utility')->notice('colors');
+  $colors = Json::decode((new PokeApi())->pokemonColor(''));
+
+  if (isset($colors)) {
+    $queue = Queue::load('colors_queue');
+
+    foreach ($colors as $color) {
+      $job = Job::create('color_upload_job', ['color' => $color]);
+      $queue->enqueueJob($job);
+    }
+  }
 }
 
 /**
  * Callback cron for egg_groups
  */
 function task_6_cron_cron_egg_groups_callback(): void {
-  \Drupal::logger('custom_utility')->notice('egg_groups');
+  $egg_groups = Json::decode((new PokeApi())->pokemonColor(''));
+
+  if (isset($egg_groups)) {
+    $queue = Queue::load('egg_groups_queue');
+
+    foreach ($egg_groups as $egg_group) {
+      $job = Job::create('egg_group_upload_job', ['egg_group' => $egg_group]);
+      $queue->enqueueJob($job);
+    }
+  }
 }
 
 /**
  * Callback cron for forms
  */
 function task_6_cron_cron_forms_callback(): void {
-  \Drupal::logger('custom_utility')->notice('forms');
+  $forms = Json::decode((new PokeApi())->pokemonForm(''));
+
+  if (isset($forms)) {
+    $queue = Queue::load('forms_queue');
+
+    foreach ($forms as $form) {
+      $job = Job::create('form_upload_job', ['form' => $form]);
+      $queue->enqueueJob($job);
+    }
+  }
 }
 
 /**
  * Callback cron for genders
  */
 function task_6_cron_cron_genders_callback(): void {
-  \Drupal::logger('custom_utility')->notice('genders');
+  $genders = Json::decode((new PokeApi())->gender(''));
+
+  if (isset($genders)) {
+    $queue = Queue::load('genders_queue');
+
+    foreach ($genders as $gender) {
+      $job = Job::create('gender_upload_job', ['gender' => $gender]);
+      $queue->enqueueJob($job);
+    }
+  }
 }
 
 /**
  * Callback cron for habitats
  */
 function task_6_cron_cron_habitats_callback(): void {
-  \Drupal::logger('custom_utility')->notice('habitats');
+  $habitats = Json::decode((new PokeApi())->pokemonHabitat(''));
+
+  if (isset($habitats)) {
+    $queue = Queue::load('habitats_queue');
+
+    foreach ($habitats as $habitat) {
+      $job = Job::create('habitat_upload_job', ['habitats' => $habitat]);
+      $queue->enqueueJob($job);
+    }
+  }
 }
 
 /**
  * Callback cron for shapes
  */
 function task_6_cron_cron_shapes_callback(): void {
-  \Drupal::logger('custom_utility')->notice('shapes');
+  $shapes = Json::decode((new PokeApi())->pokemonShape(''));
+
+  if (isset($shapes)) {
+    $queue = Queue::load('shapes_queue');
+
+    foreach ($shapes as $shape) {
+      $job = Job::create('habitat_upload_job', ['shape' => $shape]);
+      $queue->enqueueJob($job);
+    }
+  }
 }
 
 /**
  * Callback cron for species
  */
 function task_6_cron_cron_species_callback(): void {
-  \Drupal::logger('custom_utility')->notice('species');
+  $species = Json::decode((new PokeApi())->pokemonSpecies(''));
+
+  if (isset($species)) {
+    $queue = Queue::load('species_queue');
+
+    foreach ($species as $specie) {
+      $job = Job::create('specie_upload_job', ['specie' => $specie]);
+      $queue->enqueueJob($job);
+    }
+  }
 }
 
 /**
  * Callback cron for types
  */
 function task_6_cron_cron_types_callback(): void {
-  \Drupal::logger('custom_utility')->notice('types');
+  $types = Json::decode((new PokeApi())->pokemonType(''));
+
+  if (isset($types)) {
+    $queue = Queue::load('types_queue');
+
+    foreach ($types as $type) {
+      $job = Job::create('types_queue', ['type' => $type]);
+      $queue->enqueueJob($job);
+    }
+  }
 }
