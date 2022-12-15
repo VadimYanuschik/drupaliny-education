@@ -1,0 +1,71 @@
+<?php
+
+/**
+ * Callback cron for pokemons
+ */
+function task_6_cron_cron_pokemons_callback(): void {
+  \Drupal::logger('custom_utility')->notice('pokemons');
+}
+
+/**
+ * Callback cron for abilities
+ */
+function task_6_cron_cron_abilities_callback(): void {
+  \Drupal::logger('custom_utility')->notice('abilities');
+}
+
+/**
+ * Callback cron for colors
+ */
+function task_6_cron_cron_colors_callback(): void {
+  \Drupal::logger('custom_utility')->notice('colors');
+}
+
+/**
+ * Callback cron for egg_groups
+ */
+function task_6_cron_cron_egg_groups_callback(): void {
+  \Drupal::logger('custom_utility')->notice('egg_groups');
+}
+
+/**
+ * Callback cron for forms
+ */
+function task_6_cron_cron_forms_callback(): void {
+  \Drupal::logger('custom_utility')->notice('forms');
+}
+
+/**
+ * Callback cron for genders
+ */
+function task_6_cron_cron_genders_callback(): void {
+  \Drupal::logger('custom_utility')->notice('genders');
+}
+
+/**
+ * Callback cron for habitats
+ */
+function task_6_cron_cron_habitats_callback(): void {
+  \Drupal::logger('custom_utility')->notice('habitats');
+}
+
+/**
+ * Callback cron for shapes
+ */
+function task_6_cron_cron_shapes_callback(): void {
+  \Drupal::logger('custom_utility')->notice('shapes');
+}
+
+/**
+ * Callback cron for species
+ */
+function task_6_cron_cron_species_callback(): void {
+  \Drupal::logger('custom_utility')->notice('species');
+}
+
+/**
+ * Callback cron for types
+ */
+function task_6_cron_cron_types_callback(): void {
+  \Drupal::logger('custom_utility')->notice('types');
+}
