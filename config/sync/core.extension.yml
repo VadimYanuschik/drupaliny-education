@@ -5,6 +5,7 @@ module:
   admin_toolbar_links_access_filter: 0
   admin_toolbar_search: 0
   admin_toolbar_tools: 0
+  advancedqueue: 0
   automated_cron: 0
   big_pipe: 0
   block: 0
@@ -73,12 +74,14 @@ module:
   swiftmailer: 0
   system: 0
   task_4: 0
+  task_6_cron: 0
   taxonomy: 0
   text: 0
   token: 0
   toolbar: 0
   tour: 0
   twig_tweak: 0
+  ultimate_cron: 0
   update: 0
   user: 0
   views_ui: 0
