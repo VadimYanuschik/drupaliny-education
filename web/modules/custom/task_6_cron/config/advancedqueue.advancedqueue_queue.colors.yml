@@ -1,11 +1,8 @@
-uuid: 144252bf-a2e8-4891-bea0-516e3824a876
 langcode: en
 status: true
 dependencies: {  }
-_core:
-  default_config_hash: U02Wab4V6J9J8gEyT5tlBu47GwnGCYpgd3CBhXrrWU0
-id: default
-label: Default
+id: colors_queue
+label: Colors Queue
 backend: database
 backend_configuration:
   lease_time: 300
