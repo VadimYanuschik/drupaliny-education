@@ -5,15 +5,15 @@ use Drupal\advancedqueue\Job;
 use Drupal\Component\Serialization\Json;
 use PokePHP\PokeApi;
 
-$pokemonApi = new PokeApi();
+const DISABLE_LIMIT = '?limit=-1';
 
 /**
  * Callback cron for pokemons
  */
 function task_6_cron_cron_pokemons_callback(): void {
-  $pokemons = Json::decode((new PokeApi())->pokemon(''));
+  $pokemons = Json::decode((new PokeApi())->pokemon(DISABLE_LIMIT));
 
-  if (isset($pokemons)) {
+  if (is_array($pokemons)) {
     $queue = Queue::load('pokemons_queue');
 
     foreach ($pokemons as $pokemon) {
@@ -27,9 +27,9 @@ function task_6_cron_cron_pokemons_callback(): void {
  * Callback cron for abilities
  */
 function task_6_cron_cron_abilities_callback(): void {
-  $abilities = Json::decode((new PokeApi())->ability(''));
+  $abilities = Json::decode((new PokeApi())->ability(DISABLE_LIMIT));
 
-  if (isset($abilities)) {
+  if (is_array($abilities)) {
     $queue = Queue::load('abilities_queue');
 
     foreach ($abilities as $ability) {
@@ -43,7 +43,7 @@ function task_6_cron_cron_abilities_callback(): void {
  * Callback cron for colors
  */
 function task_6_cron_cron_colors_callback(): void {
-  $colors = Json::decode((new PokeApi())->pokemonColor(''));
+  $colors = Json::decode((new PokeApi())->pokemonColor(DISABLE_LIMIT));
 
   if (isset($colors)) {
     $queue = Queue::load('colors_queue');
@@ -59,7 +59,7 @@ function task_6_cron_cron_colors_callback(): void {
  * Callback cron for egg_groups
  */
 function task_6_cron_cron_egg_groups_callback(): void {
-  $egg_groups = Json::decode((new PokeApi())->pokemonColor(''));
+  $egg_groups = Json::decode((new PokeApi())->eggGroup(DISABLE_LIMIT));
 
   if (isset($egg_groups)) {
     $queue = Queue::load('egg_groups_queue');
@@ -75,7 +75,7 @@ function task_6_cron_cron_egg_groups_callback(): void {
  * Callback cron for forms
  */
 function task_6_cron_cron_forms_callback(): void {
-  $forms = Json::decode((new PokeApi())->pokemonForm(''));
+  $forms = Json::decode((new PokeApi())->pokemonForm(DISABLE_LIMIT));
 
   if (isset($forms)) {
     $queue = Queue::load('forms_queue');
@@ -91,7 +91,7 @@ function task_6_cron_cron_forms_callback(): void {
  * Callback cron for genders
  */
 function task_6_cron_cron_genders_callback(): void {
-  $genders = Json::decode((new PokeApi())->gender(''));
+  $genders = Json::decode((new PokeApi())->gender(DISABLE_LIMIT));
 
   if (isset($genders)) {
     $queue = Queue::load('genders_queue');
@@ -107,7 +107,7 @@ function task_6_cron_cron_genders_callback(): void {
  * Callback cron for habitats
  */
 function task_6_cron_cron_habitats_callback(): void {
-  $habitats = Json::decode((new PokeApi())->pokemonHabitat(''));
+  $habitats = Json::decode((new PokeApi())->pokemonHabitat(DISABLE_LIMIT));
 
   if (isset($habitats)) {
     $queue = Queue::load('habitats_queue');
@@ -123,7 +123,7 @@ function task_6_cron_cron_habitats_callback(): void {
  * Callback cron for shapes
  */
 function task_6_cron_cron_shapes_callback(): void {
-  $shapes = Json::decode((new PokeApi())->pokemonShape(''));
+  $shapes = Json::decode((new PokeApi())->pokemonShape(DISABLE_LIMIT));
 
   if (isset($shapes)) {
     $queue = Queue::load('shapes_queue');
@@ -139,7 +139,7 @@ function task_6_cron_cron_shapes_callback(): void {
  * Callback cron for species
  */
 function task_6_cron_cron_species_callback(): void {
-  $species = Json::decode((new PokeApi())->pokemonSpecies(''));
+  $species = Json::decode((new PokeApi())->pokemonSpecies(DISABLE_LIMIT));
 
   if (isset($species)) {
     $queue = Queue::load('species_queue');
@@ -155,7 +155,7 @@ function task_6_cron_cron_species_callback(): void {
  * Callback cron for types
  */
 function task_6_cron_cron_types_callback(): void {
-  $types = Json::decode((new PokeApi())->pokemonType(''));
+  $types = Json::decode((new PokeApi())->pokemonType(DISABLE_LIMIT));
 
   if (isset($types)) {
     $queue = Queue::load('types_queue');
