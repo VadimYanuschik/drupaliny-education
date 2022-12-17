@@ -3,7 +3,7 @@
 namespace Drupal\task_6_cron\Plugin\AdvancedQueue\JobType;
 
 use Drupal\advancedqueue\Job;
-use Drupal\advancedqueue\Plugin\AdvancedQueue\JobType\JobTypeBase;
+use Drupal\advancedqueue\JobResult;
 
 /**
  * @AdvancedQueueJobType(
@@ -13,12 +13,27 @@ use Drupal\advancedqueue\Plugin\AdvancedQueue\JobType\JobTypeBase;
  *  retry_delay = 10,
  * )
  */
-class AbilityImportJob extends JobTypeBase {
+class AbilityImportJob extends AbstractImportJob {
 
   /**
    * {@inheritdoc}
    */
   public function process(Job $job) {
+    try {
+      $payload = $job->getPayload()[0];
+
+      if (isset($payload)) {
+        $fields = [
+          'vid' => 'abilities',
+          'name' => $payload['name'],
+        ];
+
+        return $this->importEntity(self::STORAGE_TAXONOMY, $fields);
+      }
+      return JobResult::failure('no payload');
+    } catch (\Exception $e) {
+      return JobResult::failure($e->getMessage());
+    }
   }
 
 }

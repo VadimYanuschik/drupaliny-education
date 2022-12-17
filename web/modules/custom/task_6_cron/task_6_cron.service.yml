@@ -1,0 +1,4 @@
+services:
+  task_6_cron.abstract_import_job:
+    class: Drupal\task_6_cron\Plugin\AdvancedQueue\JobType\AbstractImportJob
+    arguments: [ '@entity_type.manager' ]
