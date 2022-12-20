@@ -2,7 +2,6 @@
 
 namespace Drupal\task_6_cron\Plugin\AdvancedQueue\JobType;
 
-use Drupal\advancedqueue\JobResult;
 use Drupal\advancedqueue\Plugin\AdvancedQueue\JobType\JobTypeBase;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
@@ -76,21 +75,21 @@ abstract class AbstractImportJob extends JobTypeBase implements ContainerFactory
    * @param string $entity_type
    * @param array $fields
    *
-   * @return \Drupal\advancedqueue\JobResult
+   * @return int
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function importEntity(string $entity_type, array $fields): JobResult {
+  public function importEntity(string $entity_type, array $fields): int {
     $existing = $this->loadEntity($entity_type, $fields);
 
     if (!$existing) {
       $this->createEntity($entity_type, $fields);
 
-      return JobResult::success('created');
+      $existing = $this->loadEntity($entity_type, $fields);
     }
 
-    return JobResult::success('already exists');
+    return array_pop($existing)->id();
   }
 
 }

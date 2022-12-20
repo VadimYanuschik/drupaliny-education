@@ -28,11 +28,19 @@ class PokemonImportJob extends AbstractImportJob {
         $fields = [
           'type' => 'pokemon',
           'title' => $payload['name'],
+          'field_name' => $payload['name'],
+          'field_base_experience' => $payload['base_experience'],
+          'field_weight' => $payload['weight'],
+          'field_height' => $payload['height'],
         ];
 
         $fields = array_merge($fields, $taxonomies);
 
-        return $this->importEntity(self::STORAGE_NODE, $fields);
+        $entityID = $this->importEntity(self::STORAGE_NODE, $fields);
+
+        if ($entityID) {
+          return JobResult::success('successful');
+        }
       }
       return JobResult::failure('no payload');
     } catch (\Exception $e) {
@@ -40,52 +48,48 @@ class PokemonImportJob extends AbstractImportJob {
     }
   }
 
-  /**
-   * Returns list of related taxonomies
-   *
-   * @return string[]
-   */
-  private function getTaxonomiesList(): array {
-    return [
-      'abilities' => 'ability',
-      'colors' => 'color',
-      'egg_groups' => 'egg_group',
-      'forms' => 'form',
-      'genders' => 'gender',
-      'habitats' => 'habitat',
-      'shapes' => 'shape',
-      'species' => 'specie',
-      'types' => 'type',
-    ];
-  }
-
-  /**
-   * @throws \Drupal\Core\Entity\EntityStorageException
-   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
-   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
-   */
   private function importPokemonTaxonomies(array $payload): array {
-    $taxonomiesList = $this->getTaxonomiesList();
-    $pokemonTaxonomies = [];
+    $entity_type = self::STORAGE_TAXONOMY;
+    $fields = ['vid' => 'colors', 'name' => $payload['color']['name']];
+    $taxonomies['field_colors'][] = $this->importEntity($entity_type, $fields);
 
-    foreach ($taxonomiesList as $taxonomyPlural => $taxonomy) {
-      if (array_key_exists($taxonomyPlural, $payload)) {
-        foreach ($payload[$taxonomyPlural] as $taxonomy_single => $value) {
-          $fields = [
-            'vid' => $taxonomyPlural,
-            'name' => $payload[$taxonomyPlural][$taxonomy_single][$taxonomy]['name'],
-          ];
+    $fields['vid'] = 'egg_groups';
+    $fields['name'] = $payload['egg_groups'][0]['name'];
+    $taxonomies['field_egg_groups'][] = $this->importEntity($entity_type, $fields);
 
-          $this->importEntity(self::STORAGE_TAXONOMY, $fields);
-          $loaded = $this->loadEntity(self::STORAGE_TAXONOMY, $fields);
-          $taxonomyID = array_pop($loaded)->id();
-
-          $pokemonTaxonomies['field_' . $taxonomy][] = $taxonomyID;
-        }
-      }
+    if (isset($payload['habitat'])) {
+      $fields['vid'] = 'habitats';
+      $fields['name'] = $payload['habitat']['name'];
+      $taxonomies['field_habitats'][] = $this->importEntity($entity_type, $fields);
     }
 
-    return $pokemonTaxonomies;
+    $fields['vid'] = 'shapes';
+    $fields['name'] = $payload['shape']['name'];
+    $taxonomies['field_shapes'][] = $this->importEntity($entity_type, $fields);
+
+    $fields['vid'] = 'species';
+    $fields['name'] = $payload['species']['name'];
+    $taxonomies['field_species'][] = $this->importEntity($entity_type, $fields);
+
+    $fields['vid'] = 'abilities';
+    foreach ($payload['abilities'] as $ability) {
+      $fields['name'] = $ability['ability']['name'];
+      $taxonomies['field_abilities'][] = $this->importEntity($entity_type, $fields);
+    }
+
+    $fields['vid'] = 'forms';
+    foreach ($payload['forms'] as $form) {
+      $fields['name'] = $form['name'];
+      $taxonomies['field_forms'][] = $this->importEntity($entity_type, $fields);
+    }
+
+    $fields['vid'] = 'types';
+    foreach ($payload['types'] as $type) {
+      $fields['name'] = $type['type']['name'];
+      $taxonomies['field_types'][] = $this->importEntity($entity_type, $fields);
+    }
+
+    return $taxonomies;
   }
 
 }
