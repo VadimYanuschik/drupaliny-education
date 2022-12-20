@@ -49,44 +49,57 @@ class PokemonImportJob extends AbstractImportJob {
   }
 
   private function importPokemonTaxonomies(array $payload): array {
+    $taxonomies = [];
     $entity_type = self::STORAGE_TAXONOMY;
-    $fields = ['vid' => 'colors', 'name' => $payload['color']['name']];
-    $taxonomies['field_colors'][] = $this->importEntity($entity_type, $fields);
 
-    $fields['vid'] = 'egg_groups';
-    $fields['name'] = $payload['egg_groups'][0]['name'];
-    $taxonomies['field_egg_groups'][] = $this->importEntity($entity_type, $fields);
+    $object_taxonomy = [
+      'colors' => 'color',
+      'habitats' => 'habitat',
+      'shapes' => 'shape',
+      'species' => 'species',
+    ];
 
-    if (isset($payload['habitat'])) {
-      $fields['vid'] = 'habitats';
-      $fields['name'] = $payload['habitat']['name'];
-      $taxonomies['field_habitats'][] = $this->importEntity($entity_type, $fields);
+    $nested_collection_taxonomy = [
+      'abilities' => 'ability',
+      'types' => 'type',
+    ];
+
+    $collection_taxonomy = [
+      'forms',
+      'egg_groups',
+    ];
+
+    foreach ($object_taxonomy as $taxonomyPlural => $taxonomy) {
+      $fields = [
+        'vid' => $taxonomyPlural,
+        'name' => $payload[$taxonomy]['name'],
+      ];
+
+      if ($payload[$taxonomy]) {
+        $taxonomies['field_' . $taxonomyPlural][] = $this->importEntity($entity_type, $fields);
+      }
     }
 
-    $fields['vid'] = 'shapes';
-    $fields['name'] = $payload['shape']['name'];
-    $taxonomies['field_shapes'][] = $this->importEntity($entity_type, $fields);
+    foreach ($nested_collection_taxonomy as $taxonomyPlural => $taxonomy) {
+      $fields['vid'] = $taxonomyPlural;
 
-    $fields['vid'] = 'species';
-    $fields['name'] = $payload['species']['name'];
-    $taxonomies['field_species'][] = $this->importEntity($entity_type, $fields);
-
-    $fields['vid'] = 'abilities';
-    foreach ($payload['abilities'] as $ability) {
-      $fields['name'] = $ability['ability']['name'];
-      $taxonomies['field_abilities'][] = $this->importEntity($entity_type, $fields);
+      if ($payload[$taxonomyPlural]) {
+        foreach ($payload[$taxonomyPlural] as $tax) {
+          $fields['name'] = $tax[$taxonomy]['name'];
+          $taxonomies['field_' . $taxonomyPlural][] = $this->importEntity($entity_type, $fields);
+        }
+      }
     }
 
-    $fields['vid'] = 'forms';
-    foreach ($payload['forms'] as $form) {
-      $fields['name'] = $form['name'];
-      $taxonomies['field_forms'][] = $this->importEntity($entity_type, $fields);
-    }
+    foreach ($collection_taxonomy as $taxonomyPlural) {
+      $fields['vid'] = $taxonomyPlural;
 
-    $fields['vid'] = 'types';
-    foreach ($payload['types'] as $type) {
-      $fields['name'] = $type['type']['name'];
-      $taxonomies['field_types'][] = $this->importEntity($entity_type, $fields);
+      if ($payload[$taxonomyPlural]) {
+        foreach ($payload[$taxonomyPlural] as $tax) {
+          $fields['name'] = $tax['name'];
+          $taxonomies['field_' . $taxonomyPlural][] = $this->importEntity($entity_type, $fields);
+        }
+      }
     }
 
     return $taxonomies;
