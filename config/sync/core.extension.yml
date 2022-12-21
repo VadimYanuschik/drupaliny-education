@@ -68,7 +68,9 @@ module:
   review_form: 0
   robotstxt: 0
   scheduler: 0
-  search: 0
+  search_api: 0
+  search_api_autocomplete: 0
+  search_api_db: 0
   shortcut: 0
   sophron: 0
   sophron_guesser: 0

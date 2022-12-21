@@ -28,7 +28,9 @@ class ColorImportJob extends AbstractImportJob {
           'name' => $payload['name'],
         ];
 
-        return $this->importEntity(self::STORAGE_TAXONOMY, $fields);
+        $this->importEntity(self::STORAGE_TAXONOMY, $fields);
+
+        return JobResult::success('successful');
       }
       return JobResult::failure('no payload');
     } catch (\Exception $e) {

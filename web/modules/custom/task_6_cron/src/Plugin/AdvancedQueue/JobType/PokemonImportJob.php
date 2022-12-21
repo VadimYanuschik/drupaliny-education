@@ -36,11 +36,9 @@ class PokemonImportJob extends AbstractImportJob {
 
         $fields = array_merge($fields, $taxonomies);
 
-        $entityID = $this->importEntity(self::STORAGE_NODE, $fields);
+        $this->importEntity(self::STORAGE_NODE, $fields);
 
-        if ($entityID) {
-          return JobResult::success('successful');
-        }
+        return JobResult::success('successful');
       }
       return JobResult::failure('no payload');
     } catch (\Exception $e) {
@@ -70,12 +68,12 @@ class PokemonImportJob extends AbstractImportJob {
     ];
 
     foreach ($object_taxonomy as $taxonomyPlural => $taxonomy) {
-      $fields = [
-        'vid' => $taxonomyPlural,
-        'name' => $payload[$taxonomy]['name'],
-      ];
-
       if ($payload[$taxonomy]) {
+        $fields = [
+          'vid' => $taxonomyPlural,
+          'name' => $payload[$taxonomy]['name'],
+        ];
+
         $taxonomies['field_' . $taxonomyPlural][] = $this->importEntity($entity_type, $fields);
       }
     }

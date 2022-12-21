@@ -1,0 +1,28 @@
+uuid: 786f45fa-f618-4fc7-baf6-4b752402e508
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.search_pokemon
+  module:
+    - system
+    - views
+  theme:
+    - subtheme
+id: exposedformsearch_pokemonpage_1
+theme: subtheme
+region: content
+weight: 0
+provider: null
+plugin: 'views_exposed_filter_block:search_pokemon-page_1'
+settings:
+  id: 'views_exposed_filter_block:search_pokemon-page_1'
+  label: ''
+  label_display: visible
+  provider: views
+  views_label: ''
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: /pokemons

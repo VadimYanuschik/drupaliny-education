@@ -28,11 +28,9 @@ class ShapeImportJob extends AbstractImportJob {
           'name' => $payload['name'],
         ];
 
-        $entityID = $this->importEntity(self::STORAGE_TAXONOMY, $fields);
+        $this->importEntity(self::STORAGE_TAXONOMY, $fields);
 
-        if ($entityID) {
-          return JobResult::success('successful');
-        }
+        return JobResult::success('successful');
       }
       return JobResult::failure('no payload');
     } catch (\Exception $e) {

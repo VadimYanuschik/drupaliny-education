@@ -34,6 +34,8 @@
         "drupal/redirect": "^1.8",
         "drupal/robotstxt": "^1.4",
         "drupal/scheduler": "^1.4",
+        "drupal/search_api": "^1.28",
+        "drupal/search_api_autocomplete": "^1.7",
         "drupal/swiftmailer": "^2.2",
         "drupal/twig_tweak": "^3.2",
         "drupal/ultimate_cron": "^2.0@alpha",
