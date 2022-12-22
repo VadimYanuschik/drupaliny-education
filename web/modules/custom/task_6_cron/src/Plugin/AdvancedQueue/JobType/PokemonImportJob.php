@@ -6,9 +6,6 @@ use Drupal\advancedqueue\Job;
 use Drupal\advancedqueue\JobResult;
 use Drupal\file\FileRepositoryInterface;
 use Drupal\media\Entity\Media;
-use Drupal\media\MediaInterface;
-use Drupal\media\MediaSourceInterface;
-use Drupal\media_library\MediaLibraryOpenerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -34,7 +31,6 @@ class PokemonImportJob extends AbstractImportJob {
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
     $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
     $instance->fileRepository = $container->get('file.repository');
-    $instance->media = $container->get('media.oembed.provider_repository');
 
     return $instance;
   }

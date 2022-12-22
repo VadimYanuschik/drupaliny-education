@@ -4,4 +4,4 @@ services:
     arguments: [ '@entity_type.manager' ]
   task_6_cron.pokemon_import_job:
     class: Drupal\task_6_cron\Plugin\AdvancedQueue\JobType\PokemonImportJob
-    arguments: [ '@file.repository', '@media.oembed.provider_repository' ]
+    arguments: [ '@file.repository' ]
