@@ -4,6 +4,12 @@ namespace Drupal\task_6_cron\Plugin\AdvancedQueue\JobType;
 
 use Drupal\advancedqueue\Job;
 use Drupal\advancedqueue\JobResult;
+use Drupal\file\FileRepositoryInterface;
+use Drupal\media\Entity\Media;
+use Drupal\media\MediaInterface;
+use Drupal\media\MediaSourceInterface;
+use Drupal\media_library\MediaLibraryOpenerInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * @AdvancedQueueJobType(
@@ -16,6 +22,24 @@ use Drupal\advancedqueue\JobResult;
 class PokemonImportJob extends AbstractImportJob {
 
   /**
+   * Defines File Repository service
+   *
+   * @var \Drupal\file\FileRepositoryInterface
+   */
+  protected FileRepositoryInterface $fileRepository;
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
+    $instance->fileRepository = $container->get('file.repository');
+    $instance->media = $container->get('media.oembed.provider_repository');
+
+    return $instance;
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function process(Job $job) {
@@ -25,6 +49,8 @@ class PokemonImportJob extends AbstractImportJob {
       if (isset($payload)) {
         $taxonomies = $this->importPokemonTaxonomies($payload);
 
+        $image_id = $this->uploadImage($payload['name'], $payload['sprites']['other']['official-artwork']['front_default']);
+
         $fields = [
           'type' => 'pokemon',
           'title' => $payload['name'],
@@ -32,6 +58,7 @@ class PokemonImportJob extends AbstractImportJob {
           'field_base_experience' => $payload['base_experience'],
           'field_weight' => $payload['weight'],
           'field_height' => $payload['height'],
+          'field_image' => $image_id,
         ];
 
         $fields = array_merge($fields, $taxonomies);
@@ -101,6 +128,33 @@ class PokemonImportJob extends AbstractImportJob {
     }
 
     return $taxonomies;
+  }
+
+  /**
+   * Upload image to media storage
+   *
+   * @param string $name
+   * @param string $image_url
+   *
+   * @return array
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   */
+  private function uploadImage(string $name, string $image_url): array {
+    $data = file_get_contents($image_url);
+    $destination = 'public://' . $name . '_' . time() . '.png';
+
+    $media = Media::create([
+      'bundle' => 'image',
+      'uid' => '0',
+      'field_media_image' => [
+        'target_id' => $this->fileRepository->writeData($data, $destination)
+          ->id(),
+      ],
+    ]);
+
+    $media->setPublished()->save();
+
+    return [$media->id()];
   }
 
 }
