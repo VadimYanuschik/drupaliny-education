@@ -12,6 +12,7 @@ dependencies:
     - field.field.node.pokemon.field_genders
     - field.field.node.pokemon.field_habitats
     - field.field.node.pokemon.field_height
+    - field.field.node.pokemon.field_image
     - field.field.node.pokemon.field_name
     - field.field.node.pokemon.field_shapes
     - field.field.node.pokemon.field_species
@@ -19,16 +20,28 @@ dependencies:
     - field.field.node.pokemon.field_weight
     - node.type.pokemon
   module:
+    - media
     - user
 id: node.pokemon.teaser
 targetEntityType: node
 bundle: pokemon
 mode: teaser
 content:
+  field_image:
+    type: media_thumbnail
+    label: hidden
+    settings:
+      image_link: content
+      image_style: ''
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 1
+    region: content
   links:
     settings: {  }
     third_party_settings: {  }
-    weight: 100
+    weight: 0
     region: content
 hidden:
   field_abilities: true
@@ -44,3 +57,4 @@ hidden:
   field_species: true
   field_types: true
   field_weight: true
+  search_api_excerpt: true

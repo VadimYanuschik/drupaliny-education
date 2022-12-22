@@ -13,6 +13,7 @@ dependencies:
     - field.storage.node.field_height
     - field.storage.node.field_shapes
     - field.storage.node.field_species
+    - field.storage.node.field_types
     - search_api.server.database
   module:
     - node
@@ -103,6 +104,14 @@ field_settings:
     dependencies:
       config:
         - field.storage.node.field_species
+  field_types:
+    label: Types
+    datasource_id: 'entity:node'
+    property_path: field_types
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_types
   node_grants:
     label: 'Node access information'
     property_path: search_api_node_grants
@@ -111,7 +120,7 @@ field_settings:
     type_locked: true
     hidden: true
   status:
-    label: null
+    label: status
     datasource_id: 'entity:node'
     property_path: status
     type: boolean
@@ -129,7 +138,7 @@ field_settings:
       module:
         - node
   uid:
-    label: null
+    label: uid
     datasource_id: 'entity:node'
     property_path: uid
     type: integer
