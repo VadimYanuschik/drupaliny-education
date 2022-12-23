@@ -9,8 +9,8 @@ use Drupal\advancedqueue\JobResult;
  * @AdvancedQueueJobType(
  *  id = "egg_group_import_job",
  *  label = @Translation("EggGroupImportJob"),
- *  max_retries = 1,
- *  retry_delay = 10,
+ *  max_retries = 3,
+ *  retry_delay = 60,
  * )
  */
 class EggGroupImportJob extends AbstractImportJob {
@@ -32,7 +32,7 @@ class EggGroupImportJob extends AbstractImportJob {
 
         return JobResult::success('successful');
       }
-      return JobResult::failure('no payload');
+      return JobResult::failure('no payload', 3, 60);
     } catch (\Exception $e) {
       return JobResult::failure($e->getMessage());
     }
