@@ -9,16 +9,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 abstract class AbstractImportJob extends JobTypeBase implements ContainerFactoryPluginInterface {
 
   /**
-   * Taxonomy storage constant
-   */
-  const STORAGE_TAXONOMY = 'taxonomy_term';
-
-  /**
-   * Node storage constant
-   */
-  const STORAGE_NODE = 'node';
-
-  /**
    * The Entity Type Manager service
    *
    * @var \Drupal\Core\Entity\EntityTypeManagerInterface

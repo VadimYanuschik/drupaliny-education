@@ -28,7 +28,7 @@ class AbilityImportJob extends AbstractImportJob {
           'name' => $payload['name'],
         ];
 
-        $this->importEntity(self::STORAGE_TAXONOMY, $fields);
+        $this->importEntity('taxonomy_term', $fields);
 
         return JobResult::success('successful');
       }

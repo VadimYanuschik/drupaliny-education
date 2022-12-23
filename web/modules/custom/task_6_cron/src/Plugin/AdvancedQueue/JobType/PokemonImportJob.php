@@ -40,7 +40,7 @@ class PokemonImportJob extends AbstractImportJob {
 
         $fields = array_merge($fields, $taxonomies);
 
-        $this->importEntity(self::STORAGE_NODE, $fields);
+        $this->importEntity('node', $fields);
 
         return JobResult::success('successful');
       }
@@ -52,7 +52,7 @@ class PokemonImportJob extends AbstractImportJob {
 
   private function importPokemonTaxonomies(array $payload): array {
     $taxonomies = [];
-    $entity_type = self::STORAGE_TAXONOMY;
+    $entity_type = 'taxonomy_term';
 
     $object_taxonomy = [
       'colors' => 'color',
