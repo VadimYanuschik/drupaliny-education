@@ -4,9 +4,7 @@ namespace Drupal\task_6_cron\Plugin\AdvancedQueue\JobType;
 
 use Drupal\advancedqueue\Job;
 use Drupal\advancedqueue\JobResult;
-use Drupal\file\FileRepositoryInterface;
 use Drupal\media\Entity\Media;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * @AdvancedQueueJobType(
@@ -19,26 +17,9 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class PokemonImportJob extends AbstractImportJob {
 
   /**
-   * Defines File Repository service
-   *
-   * @var \Drupal\file\FileRepositoryInterface
-   */
-  protected FileRepositoryInterface $fileRepository;
-
-  /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
-    $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
-    $instance->fileRepository = $container->get('file.repository');
-
-    return $instance;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function process(Job $job) {
+  public function process(Job $job): JobResult {
     try {
       $payload = $job->getPayload()[0];
 

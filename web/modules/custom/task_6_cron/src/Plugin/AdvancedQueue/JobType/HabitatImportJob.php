@@ -18,7 +18,7 @@ class HabitatImportJob extends AbstractImportJob {
   /**
    * {@inheritdoc}
    */
-  public function process(Job $job) {
+  public function process(Job $job): JobResult {
     try {
       $payload = $job->getPayload()[0];
 

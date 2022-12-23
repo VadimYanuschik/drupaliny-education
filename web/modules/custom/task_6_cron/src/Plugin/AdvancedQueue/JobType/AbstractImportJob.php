@@ -3,7 +3,6 @@
 namespace Drupal\task_6_cron\Plugin\AdvancedQueue\JobType;
 
 use Drupal\advancedqueue\Plugin\AdvancedQueue\JobType\JobTypeBase;
-use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -24,19 +23,28 @@ abstract class AbstractImportJob extends JobTypeBase implements ContainerFactory
    *
    * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
-  protected EntityTypeManagerInterface $entityTypeManager;
+  protected $entityTypeManager;
+
+  /**
+   * Defines File Repository service
+   *
+   * @var \Drupal\file\FileRepositoryInterface
+   */
+  protected $fileRepository;
 
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): static {
     $instance = new static($configuration, $plugin_id, $plugin_definition);
     $instance->entityTypeManager = $container->get('entity_type.manager');
+    $instance->fileRepository = $container->get('file.repository');
 
     return $instance;
   }
 
   /**
+   * TODO: update
    * Save entity to storage
    *
    * @param string $entity_type
@@ -47,7 +55,7 @@ abstract class AbstractImportJob extends JobTypeBase implements ContainerFactory
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function createEntity(string $entity_type, array $fields): int {
+  public function createEntity(string $entity_type, array $fields, bool $return_as_object = FALSE): int {
     return $this->entityTypeManager->getStorage($entity_type)
       ->create($fields)
       ->enforceIsNew()
@@ -84,9 +92,7 @@ abstract class AbstractImportJob extends JobTypeBase implements ContainerFactory
     $existing = $this->loadEntity($entity_type, $fields);
 
     if (!$existing) {
-      $this->createEntity($entity_type, $fields);
-
-      $existing = $this->loadEntity($entity_type, $fields);
+      $existing = $this->createEntity($entity_type, $fields, TRUE);
     }
 
     return array_pop($existing)->id();

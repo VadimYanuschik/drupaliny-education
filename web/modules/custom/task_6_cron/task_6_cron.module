@@ -8,6 +8,7 @@ use PokePHP\PokeApi;
 const DEFAULT_LIMIT = 50;
 const DEFAULT_OFFSET = 0;
 
+// todo: [$item] delete
 function addJobsToQueue(array $params): void {
   $queue = Queue::load($params['queue_name']);
 
@@ -307,7 +308,7 @@ function task_6_cron_cron_types_callback(): void {
       'offset' => DEFAULT_OFFSET,
     ],
     'queue_name' => 'types_queue',
-    'job_name' => 'types_queue',
+    'job_name' => 'type_import_job',
   ];
 
   $pokeApi = new PokeApi();
