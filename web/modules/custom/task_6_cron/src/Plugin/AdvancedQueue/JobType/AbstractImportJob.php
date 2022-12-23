@@ -44,22 +44,29 @@ abstract class AbstractImportJob extends JobTypeBase implements ContainerFactory
   }
 
   /**
-   * TODO: update
    * Save entity to storage
    *
    * @param string $entity_type
    * @param array $fields
+   * @param bool $return_as_object
    *
-   * @return int
+   * @return int|string
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function createEntity(string $entity_type, array $fields, bool $return_as_object = FALSE): int {
-    return $this->entityTypeManager->getStorage($entity_type)
+  public function createEntity(string $entity_type, array $fields, bool $return_as_object = FALSE): int|string {
+    $entity = $this->entityTypeManager->getStorage($entity_type)
       ->create($fields)
-      ->enforceIsNew()
-      ->save();
+      ->enforceIsNew();
+
+    $is_saved = $entity->save();
+
+    if ($return_as_object) {
+      return $entity->id();
+    }
+
+    return $is_saved;
   }
 
   /**

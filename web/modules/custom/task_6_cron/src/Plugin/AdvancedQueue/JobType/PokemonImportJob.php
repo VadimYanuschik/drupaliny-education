@@ -21,7 +21,7 @@ class PokemonImportJob extends AbstractImportJob {
    */
   public function process(Job $job): JobResult {
     try {
-      $payload = $job->getPayload()[0];
+      $payload = $job->getPayload();
 
       if (isset($payload)) {
         $taxonomies = $this->importPokemonTaxonomies($payload);

@@ -18,9 +18,9 @@ class ShapeImportJob extends AbstractImportJob {
   /**
    * {@inheritdoc}
    */
-  public function process(Job $job) {
+  public function process(Job $job): JobResult {
     try {
-      $payload = $job->getPayload()[0];
+      $payload = $job->getPayload();
 
       if (isset($payload)) {
         $fields = [

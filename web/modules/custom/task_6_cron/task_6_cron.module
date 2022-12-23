@@ -8,12 +8,11 @@ use PokePHP\PokeApi;
 const DEFAULT_LIMIT = 50;
 const DEFAULT_OFFSET = 0;
 
-// todo: [$item] delete
 function addJobsToQueue(array $params): void {
   $queue = Queue::load($params['queue_name']);
 
   foreach ($params['response']['results'] as $item) {
-    $job = Job::create($params['job_name'], [$item]);
+    $job = Job::create($params['job_name'], $item);
     $queue->enqueueJob($job);
   }
 }
