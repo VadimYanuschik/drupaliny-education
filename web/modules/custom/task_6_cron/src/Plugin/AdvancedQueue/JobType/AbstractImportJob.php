@@ -3,7 +3,10 @@
 namespace Drupal\task_6_cron\Plugin\AdvancedQueue\JobType;
 
 use Drupal\advancedqueue\Plugin\AdvancedQueue\JobType\JobTypeBase;
+use Drupal\Component\Serialization\Json;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\media\Entity\Media;
+use PokePHP\PokeApi;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 abstract class AbstractImportJob extends JobTypeBase implements ContainerFactoryPluginInterface {
@@ -23,12 +26,18 @@ abstract class AbstractImportJob extends JobTypeBase implements ContainerFactory
   protected $fileRepository;
 
   /**
+   * @var \PokePHP\PokeApi
+   */
+  protected $pokemonApi;
+
+  /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): static {
     $instance = new static($configuration, $plugin_id, $plugin_definition);
     $instance->entityTypeManager = $container->get('entity_type.manager');
     $instance->fileRepository = $container->get('file.repository');
+    $instance->pokemonApi = new PokeApi();
 
     return $instance;
   }
