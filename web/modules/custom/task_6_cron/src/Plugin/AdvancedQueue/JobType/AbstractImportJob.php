@@ -3,9 +3,8 @@
 namespace Drupal\task_6_cron\Plugin\AdvancedQueue\JobType;
 
 use Drupal\advancedqueue\Plugin\AdvancedQueue\JobType\JobTypeBase;
-use Drupal\Component\Serialization\Json;
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\media\Entity\Media;
 use PokePHP\PokeApi;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -47,25 +46,20 @@ abstract class AbstractImportJob extends JobTypeBase implements ContainerFactory
    *
    * @param string $entity_type
    * @param array $fields
-   * @param bool $return_as_object
    *
-   * @return int|string
+   * @return \Drupal\Core\Entity\EntityInterface
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function createEntity(string $entity_type, array $fields, bool $return_as_object = FALSE): int|string {
+  public function createEntity(string $entity_type, array $fields): EntityInterface {
     $entity = $this->entityTypeManager->getStorage($entity_type)
       ->create($fields)
       ->enforceIsNew();
 
-    $is_saved = $entity->save();
+    $entity->save();
 
-    if ($return_as_object) {
-      return $entity->id();
-    }
-
-    return $is_saved;
+    return $entity;
   }
 
   /**
@@ -74,13 +68,19 @@ abstract class AbstractImportJob extends JobTypeBase implements ContainerFactory
    * @param string $entity_type
    * @param array $fields
    *
-   * @return array
+   * @return false
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  public function loadEntity(string $entity_type, array $fields): array {
-    return $this->entityTypeManager->getStorage($entity_type)
+  public function loadEntity(string $entity_type, array $fields): EntityInterface|bool {
+    $entities = $this->entityTypeManager->getStorage($entity_type)
       ->loadByProperties($fields);
+
+    if (empty($entities)) {
+      return FALSE;
+    }
+
+    return array_pop($entities);
   }
 
   /**
@@ -89,19 +89,19 @@ abstract class AbstractImportJob extends JobTypeBase implements ContainerFactory
    * @param string $entity_type
    * @param array $fields
    *
-   * @return int
+   * @return int|string
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function importEntity(string $entity_type, array $fields): int {
-    $existing = $this->loadEntity($entity_type, $fields);
+  public function importEntity(string $entity_type, array $fields): int|string {
+    $entity = $this->loadEntity($entity_type, $fields);
 
-    if (!$existing) {
-      $existing = $this->createEntity($entity_type, $fields, TRUE);
+    if (!$entity) {
+      $entity = $this->createEntity($entity_type, $fields);
     }
 
-    return array_pop($existing)->id();
+    return $entity->id();
   }
 
 }
