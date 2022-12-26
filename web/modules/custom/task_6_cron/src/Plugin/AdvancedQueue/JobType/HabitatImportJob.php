@@ -9,8 +9,6 @@ use Drupal\advancedqueue\JobResult;
  * @AdvancedQueueJobType(
  *  id = "habitat_import_job",
  *  label = @Translation("HabitatImportJob"),
- *  max_retries = 3,
- *  retry_delay = 60,
  * )
  */
 class HabitatImportJob extends AbstractImportJob {
@@ -19,23 +17,22 @@ class HabitatImportJob extends AbstractImportJob {
    * {@inheritdoc}
    */
   public function process(Job $job): JobResult {
-    try {
-      $payload = $job->getPayload();
+    $payload = $job->getPayload();
 
-      if (isset($payload)) {
-        $fields = [
-          'vid' => 'habitats',
-          'name' => $payload['name'],
-        ];
+    if (isset($payload)) {
+      $fields = [
+        'vid' => 'habitats',
+        'name' => $payload['name'],
+      ];
 
+      try {
         $this->importEntity('taxonomy_term', $fields);
-
-        return JobResult::success('successful');
+      } catch (\Exception $e) {
+        return JobResult::failure($e->getMessage());
       }
-      return JobResult::failure('no payload', 3, 60);
-    } catch (\Exception $e) {
-      return JobResult::failure($e->getMessage());
+      return JobResult::success('successful');
     }
+    return JobResult::failure('no payload', 3, 60);
   }
 
 }

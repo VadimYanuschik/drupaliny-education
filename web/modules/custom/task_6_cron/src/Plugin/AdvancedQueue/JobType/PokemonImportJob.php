@@ -11,8 +11,6 @@ use Drupal\media\Entity\Media;
  * @AdvancedQueueJobType(
  *  id = "pokemon_import_job",
  *  label = @Translation("PokemonImportJob"),
- *  max_retries = 3,
- *  retry_delay = 60,
  * )
  */
 class PokemonImportJob extends AbstractImportJob {
@@ -21,39 +19,38 @@ class PokemonImportJob extends AbstractImportJob {
    * {@inheritdoc}
    */
   public function process(Job $job): JobResult {
-    try {
-      $payload = $job->getPayload();
+    $payload = $job->getPayload();
 
-      if (isset($payload)) {
-        $pokemon_id = explode('/pokemon/', $payload['url'])[1];
-        $pokemonData = Json::decode($this->pokemonApi->pokemon($pokemon_id));
-        $pokemonSpecieData = Json::decode($this->pokemonApi->pokemonSpecies($pokemon_id));
-        $pokemonData = array_merge($pokemonData, $pokemonSpecieData);
+    if (isset($payload)) {
+      $pokemon_id = explode('/pokemon/', $payload['url'])[1];
+      $pokemonData = Json::decode($this->pokemonApi->pokemon($pokemon_id));
+      $pokemonSpecieData = Json::decode($this->pokemonApi->pokemonSpecies($pokemon_id));
+      $pokemonData = array_merge($pokemonData, $pokemonSpecieData);
 
-        $taxonomies = $this->importPokemonTaxonomies($pokemonData);
+      $taxonomies = $this->importPokemonTaxonomies($pokemonData);
 
-        $image_id = $this->uploadImage($pokemonData['name'], $pokemonData['sprites']['other']['official-artwork']['front_default']);
+      $image_id = $this->uploadImage($pokemonData['name'], $pokemonData['sprites']['other']['official-artwork']['front_default']);
 
-        $fields = [
-          'type' => 'pokemon',
-          'title' => $pokemonData['name'],
-          'field_name' => $pokemonData['name'],
-          'field_base_experience' => $pokemonData['base_experience'],
-          'field_weight' => $pokemonData['weight'],
-          'field_height' => $pokemonData['height'],
-          'field_image' => $image_id,
-        ];
+      $fields = [
+        'type' => 'pokemon',
+        'title' => $pokemonData['name'],
+        'field_name' => $pokemonData['name'],
+        'field_base_experience' => $pokemonData['base_experience'],
+        'field_weight' => $pokemonData['weight'],
+        'field_height' => $pokemonData['height'],
+        'field_image' => $image_id,
+      ];
 
-        $fields = array_merge($fields, $taxonomies);
+      $fields = array_merge($fields, $taxonomies);
 
-        $this->importEntity('node', $fields);
-
-        return JobResult::success('successful');
+      try {
+        $this->importEntity('taxonomy_term', $fields);
+      } catch (\Exception $e) {
+        return JobResult::failure($e->getMessage());
       }
-      return JobResult::failure('no payload', 3, 60);
-    } catch (\Exception $e) {
-      return JobResult::failure($e->getMessage());
+      return JobResult::success('successful');
     }
+    return JobResult::failure('no payload', 3, 60);
   }
 
   /**
