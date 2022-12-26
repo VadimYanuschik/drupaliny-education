@@ -36,7 +36,7 @@ content:
     region: content
   field_base_experience:
     type: number_integer
-    label: hidden
+    label: above
     settings:
       thousand_separator: ''
       prefix_suffix: true
@@ -85,7 +85,7 @@ content:
     region: content
   field_height:
     type: number_integer
-    label: hidden
+    label: above
     settings:
       thousand_separator: ''
       prefix_suffix: true
@@ -94,7 +94,7 @@ content:
     region: content
   field_image:
     type: entity_reference_entity_view
-    label: hidden
+    label: above
     settings:
       view_mode: default
       link: false
@@ -103,7 +103,7 @@ content:
     region: content
   field_name:
     type: text_default
-    label: hidden
+    label: above
     settings: {  }
     third_party_settings: {  }
     weight: 1
@@ -134,7 +134,7 @@ content:
     region: content
   field_weight:
     type: number_integer
-    label: hidden
+    label: above
     settings:
       thousand_separator: ''
       prefix_suffix: true
