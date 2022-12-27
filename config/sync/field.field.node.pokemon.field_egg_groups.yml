@@ -1,0 +1,29 @@
+uuid: 42a5049c-0456-4341-a85e-089939ff62fc
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_egg_groups
+    - node.type.pokemon
+    - taxonomy.vocabulary.egg_groups
+id: node.pokemon.field_egg_groups
+field_name: field_egg_groups
+entity_type: node
+bundle: pokemon
+label: 'Egg Groups'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      egg_groups: egg_groups
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

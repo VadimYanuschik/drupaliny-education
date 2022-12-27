@@ -1,0 +1,232 @@
+uuid: 9dd7370f-5e6f-4922-96f2-e7e0606491d4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.pokemon.field_abilities
+    - field.field.node.pokemon.field_base_experience
+    - field.field.node.pokemon.field_colors
+    - field.field.node.pokemon.field_egg_groups
+    - field.field.node.pokemon.field_forms
+    - field.field.node.pokemon.field_genders
+    - field.field.node.pokemon.field_habitats
+    - field.field.node.pokemon.field_height
+    - field.field.node.pokemon.field_image
+    - field.field.node.pokemon.field_name
+    - field.field.node.pokemon.field_shapes
+    - field.field.node.pokemon.field_species
+    - field.field.node.pokemon.field_types
+    - field.field.node.pokemon.field_weight
+    - node.type.pokemon
+  module:
+    - field_layout
+    - layout_discovery
+    - media_library
+    - path
+    - scheduler
+    - text
+third_party_settings:
+  field_layout:
+    id: layout_onecol
+    settings:
+      label: ''
+id: node.pokemon.default
+targetEntityType: node
+bundle: pokemon
+mode: default
+content:
+  created:
+    type: datetime_timestamp
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_abilities:
+    type: entity_reference_autocomplete
+    weight: 125
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_base_experience:
+    type: number
+    weight: 122
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  field_colors:
+    type: entity_reference_autocomplete
+    weight: 126
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_egg_groups:
+    type: entity_reference_autocomplete
+    weight: 127
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_forms:
+    type: entity_reference_autocomplete
+    weight: 128
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_genders:
+    type: entity_reference_autocomplete
+    weight: 129
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_habitats:
+    type: entity_reference_autocomplete
+    weight: 130
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_height:
+    type: number
+    weight: 123
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  field_image:
+    type: media_library_widget
+    weight: 134
+    region: content
+    settings:
+      media_types: {  }
+    third_party_settings: {  }
+  field_name:
+    type: text_textfield
+    weight: 121
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_shapes:
+    type: entity_reference_autocomplete
+    weight: 131
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_species:
+    type: entity_reference_autocomplete
+    weight: 132
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_types:
+    type: entity_reference_autocomplete
+    weight: 133
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_weight:
+    type: number
+    weight: 124
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 30
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  promote:
+    type: boolean_checkbox
+    weight: 15
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  publish_on:
+    type: datetime_timestamp_no_default
+    weight: 30
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: 120
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  sticky:
+    type: boolean_checkbox
+    weight: 16
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: -5
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 5
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  unpublish_on:
+    type: datetime_timestamp_no_default
+    weight: 30
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  url_redirects:
+    weight: 50
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

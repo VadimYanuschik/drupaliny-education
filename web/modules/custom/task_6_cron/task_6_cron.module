@@ -1,0 +1,209 @@
+<?php
+
+use Drupal\advancedqueue\Entity\Queue;
+use Drupal\advancedqueue\Job;
+use Drupal\Component\Serialization\Json;
+use PokePHP\PokeApi;
+
+const DEFAULT_LIMIT = 50;
+const DEFAULT_OFFSET = 0;
+
+function add_jobs_to_queue(array $payload, string $queue_name, string $job_name): void {
+  $queue = Queue::load($queue_name);
+
+  foreach ($payload as $item) {
+    $job = Job::create($job_name, $item);
+    $queue->enqueueJob($job);
+  }
+}
+
+function call_api(array $params): void {
+  $pokeApi = new PokeApi();
+
+  while (TRUE) {
+    $params['response'] = Json::decode(call_user_func([
+      $pokeApi,
+      $params['api_params']['method'],
+    ], '?limit=' . $params['api_params']['limit'] . '&offset=' . $params['api_params']['offset']));
+
+    if (isset($params['response'])) {
+      add_jobs_to_queue($params['response']['results'], $params['queue_name'], $params['job_name']);
+    }
+
+    if (is_null($params['response']['next'])) {
+      break;
+    }
+
+    $params['api_params']['offset'] += DEFAULT_LIMIT;
+  }
+}
+
+/**
+ * Callback cron for pokemons
+ */
+function task_6_cron_cron_pokemons_callback(): void {
+  $params = [
+    'api_params' => [
+      'limit' => DEFAULT_LIMIT,
+      'offset' => DEFAULT_OFFSET,
+      'method' => 'pokemon',
+    ],
+    'queue_name' => 'pokemons_queue',
+    'job_name' => 'pokemon_import_job',
+  ];
+
+  call_api($params);
+}
+
+/**
+ * Callback cron for abilities
+ */
+function task_6_cron_cron_abilities_callback(): void {
+  $params = [
+    'api_params' => [
+      'limit' => DEFAULT_LIMIT,
+      'offset' => DEFAULT_OFFSET,
+      'method' => 'ability',
+    ],
+    'queue_name' => 'abilities_queue',
+    'job_name' => 'ability_import_job',
+  ];
+
+  call_api($params);
+}
+
+/**
+ * Callback cron for colors
+ */
+function task_6_cron_cron_colors_callback(): void {
+  $params = [
+    'api_params' => [
+      'limit' => DEFAULT_LIMIT,
+      'offset' => DEFAULT_OFFSET,
+      'method' => 'pokemonColor',
+    ],
+    'queue_name' => 'colors_queue',
+    'job_name' => 'color_import_job',
+  ];
+
+  call_api($params);
+}
+
+/**
+ * Callback cron for egg_groups
+ */
+function task_6_cron_cron_egg_groups_callback(): void {
+  $params = [
+    'api_params' => [
+      'limit' => DEFAULT_LIMIT,
+      'offset' => DEFAULT_OFFSET,
+      'method' => 'eggGroup',
+    ],
+    'queue_name' => 'egg_groups_queue',
+    'job_name' => 'egg_group_import_job',
+  ];
+
+  call_api($params);
+}
+
+/**
+ * Callback cron for forms
+ */
+function task_6_cron_cron_forms_callback(): void {
+  $params = [
+    'api_params' => [
+      'limit' => DEFAULT_LIMIT,
+      'offset' => DEFAULT_OFFSET,
+      'method' => 'pokemonForm',
+    ],
+    'queue_name' => 'forms_queue',
+    'job_name' => 'form_import_job',
+  ];
+
+  call_api($params);
+}
+
+/**
+ * Callback cron for genders
+ */
+function task_6_cron_cron_genders_callback(): void {
+  $params = [
+    'api_params' => [
+      'limit' => DEFAULT_LIMIT,
+      'offset' => DEFAULT_OFFSET,
+      'method' => 'gender',
+    ],
+    'queue_name' => 'genders_queue',
+    'job_name' => 'gender_import_job',
+  ];
+
+  call_api($params);
+}
+
+/**
+ * Callback cron for habitats
+ */
+function task_6_cron_cron_habitats_callback(): void {
+  $params = [
+    'api_params' => [
+      'limit' => DEFAULT_LIMIT,
+      'offset' => DEFAULT_OFFSET,
+      'method' => 'pokemonHabitat',
+    ],
+    'queue_name' => 'habitats_queue',
+    'job_name' => 'habitat_import_job',
+  ];
+
+  call_api($params);
+}
+
+/**
+ * Callback cron for shapes
+ */
+function task_6_cron_cron_shapes_callback(): void {
+  $params = [
+    'api_params' => [
+      'limit' => DEFAULT_LIMIT,
+      'offset' => DEFAULT_OFFSET,
+      'method' => 'pokemonShape',
+    ],
+    'queue_name' => 'shapes_queue',
+    'job_name' => 'shape_import_job',
+  ];
+
+  call_api($params);
+}
+
+/**
+ * Callback cron for species
+ */
+function task_6_cron_cron_species_callback(): void {
+  $params = [
+    'api_params' => [
+      'limit' => DEFAULT_LIMIT,
+      'offset' => DEFAULT_OFFSET,
+      'method' => 'pokemonSpecies',
+    ],
+    'queue_name' => 'species_queue',
+    'job_name' => 'specie_import_job',
+  ];
+
+  call_api($params);
+}
+
+/**
+ * Callback cron for types
+ */
+function task_6_cron_cron_types_callback(): void {
+  $params = [
+    'api_params' => [
+      'limit' => DEFAULT_LIMIT,
+      'offset' => DEFAULT_OFFSET,
+      'method' => 'pokemonType',
+    ],
+    'queue_name' => 'types_queue',
+    'job_name' => 'type_import_job',
+  ];
+
+  call_api($params);
+}

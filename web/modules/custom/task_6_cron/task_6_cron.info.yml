@@ -1,0 +1,7 @@
+name: Task 6 Cron
+description: Task 6 cron (pokemon api)
+type: module
+core_version_requirement: ^9
+dependencies:
+  - drupal:ultimate_cron
+  - drupal:advancedqueue

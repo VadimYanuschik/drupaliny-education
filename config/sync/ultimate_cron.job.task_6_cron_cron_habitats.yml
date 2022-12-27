@@ -1,0 +1,17 @@
+uuid: 4ce997f4-69c7-447a-8746-75b54ff3eb09
+langcode: en
+status: true
+dependencies:
+  module:
+    - task_6_cron
+title: 'Cron for habitats'
+id: task_6_cron_cron_habitats
+weight: 0
+module: task_6_cron
+callback: task_6_cron_cron_habitats_callback
+scheduler:
+  id: simple
+launcher:
+  id: serial
+logger:
+  id: database

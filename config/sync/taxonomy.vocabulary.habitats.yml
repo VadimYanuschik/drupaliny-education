@@ -1,0 +1,8 @@
+uuid: 39a12bd4-dfad-4fe7-80a1-23bacc543285
+langcode: en
+status: true
+dependencies: {  }
+name: Habitats
+vid: habitats
+description: ''
+weight: -5

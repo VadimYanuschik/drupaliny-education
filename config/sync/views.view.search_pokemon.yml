@@ -1,0 +1,620 @@
+uuid: 1b24efda-8d72-4919-aa4d-9e16c765519b
+langcode: en
+status: true
+dependencies:
+  config:
+    - search_api.index.index
+    - taxonomy.vocabulary.abilities
+    - taxonomy.vocabulary.colors
+    - taxonomy.vocabulary.egg_groups
+    - taxonomy.vocabulary.forms
+    - taxonomy.vocabulary.genders
+    - taxonomy.vocabulary.habitats
+    - taxonomy.vocabulary.species
+    - taxonomy.vocabulary.types
+  module:
+    - search_api
+id: search_pokemon
+label: 'Search Pokemon'
+module: views
+description: ''
+tag: ''
+base_table: search_api_index_index
+base_field: search_api_id
+display:
+  default:
+    id: default
+    display_title: Default
+    display_plugin: default
+    position: 0
+    display_options:
+      title: 'Search Pokemon'
+      fields: {  }
+      pager:
+        type: full
+        options:
+          offset: 0
+          items_per_page: 10
+          total_pages: null
+          id: 0
+          tags:
+            next: ››
+            previous: ‹‹
+            first: '« First'
+            last: 'Last »'
+          expose:
+            items_per_page: false
+            items_per_page_label: 'Items per page'
+            items_per_page_options: '5, 10, 25, 50'
+            items_per_page_options_all: false
+            items_per_page_options_all_label: '- All -'
+            offset: false
+            offset_label: Offset
+          quantity: 9
+      exposed_form:
+        type: basic
+        options:
+          submit_button: Apply
+          reset_button: false
+          reset_button_label: Reset
+          exposed_sorts_label: 'Sort by'
+          expose_sort_order: true
+          sort_asc_label: Asc
+          sort_desc_label: Desc
+      access:
+        type: none
+        options: {  }
+      cache:
+        type: none
+        options: {  }
+      empty: {  }
+      sorts: {  }
+      arguments: {  }
+      filters:
+        search_api_fulltext:
+          id: search_api_fulltext
+          table: search_api_index_index
+          field: search_api_fulltext
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: search_api_fulltext
+          operator: or
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: search_api_fulltext_op
+            label: 'Search about pokemons'
+            description: ''
+            use_operator: false
+            operator: search_api_fulltext_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: search_api_fulltext
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_editor: '0'
+              administrator: '0'
+            expose_fields: false
+            placeholder: ''
+            searched_fields_id: search_api_fulltext_searched_fields
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          parse_mode: terms
+          min_length: 1
+          fields: {  }
+        field_colors:
+          id: field_colors
+          table: search_api_index_index
+          field: field_colors
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: search_api_term
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_colors_op
+            label: Colors
+            description: ''
+            use_operator: false
+            operator: field_colors_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_colors
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_editor: '0'
+              administrator: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: Colors
+            description: null
+            identifier: field_colors
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items:
+              1: {  }
+              2: {  }
+              3: {  }
+          reduce_duplicates: false
+          vid: colors
+          type: select
+          hierarchy: false
+          limit: true
+          error_message: true
+        field_abilities:
+          id: field_abilities
+          table: search_api_index_index
+          field: field_abilities
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: search_api_term
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_abilities_op
+            label: Abilities
+            description: ''
+            use_operator: false
+            operator: field_abilities_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_abilities
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_editor: '0'
+              administrator: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          vid: abilities
+          type: textfield
+          hierarchy: false
+          limit: true
+          error_message: true
+        field_egg_groups:
+          id: field_egg_groups
+          table: search_api_index_index
+          field: field_egg_groups
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: search_api_term
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_egg_groups_op
+            label: 'Egg Groups'
+            description: ''
+            use_operator: false
+            operator: field_egg_groups_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_egg_groups
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_editor: '0'
+              administrator: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          vid: egg_groups
+          type: select
+          hierarchy: false
+          limit: true
+          error_message: true
+        field_forms:
+          id: field_forms
+          table: search_api_index_index
+          field: field_forms
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: search_api_term
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_forms_op
+            label: Forms
+            description: ''
+            use_operator: false
+            operator: field_forms_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_forms
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_editor: '0'
+              administrator: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          vid: forms
+          type: textfield
+          hierarchy: false
+          limit: true
+          error_message: true
+        field_genders:
+          id: field_genders
+          table: search_api_index_index
+          field: field_genders
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: search_api_term
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_genders_op
+            label: Genders
+            description: ''
+            use_operator: false
+            operator: field_genders_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_genders
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_editor: '0'
+              administrator: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          vid: genders
+          type: select
+          hierarchy: false
+          limit: true
+          error_message: true
+        field_habitats:
+          id: field_habitats
+          table: search_api_index_index
+          field: field_habitats
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: search_api_term
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_habitats_op
+            label: Habitats
+            description: ''
+            use_operator: false
+            operator: field_habitats_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_habitats
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_editor: '0'
+              administrator: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          vid: habitats
+          type: select
+          hierarchy: false
+          limit: true
+          error_message: true
+        field_shapes:
+          id: field_shapes
+          table: search_api_index_index
+          field: field_shapes
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: search_api_term
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_shapes_op
+            label: Shapes
+            description: ''
+            use_operator: false
+            operator: field_shapes_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_shapes
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_editor: '0'
+              administrator: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          vid: species
+          type: select
+          hierarchy: false
+          limit: true
+          error_message: true
+        field_species:
+          id: field_species
+          table: search_api_index_index
+          field: field_species
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: search_api_term
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_species_op
+            label: Species
+            description: ''
+            use_operator: false
+            operator: field_species_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_species
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_editor: '0'
+              administrator: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          vid: species
+          type: textfield
+          hierarchy: false
+          limit: true
+          error_message: true
+        field_types:
+          id: field_types
+          table: search_api_index_index
+          field: field_types
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: search_api_term
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_types_op
+            label: Types
+            description: ''
+            use_operator: false
+            operator: field_types_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_types
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_editor: '0'
+              administrator: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          vid: types
+          type: select
+          hierarchy: false
+          limit: true
+          error_message: true
+      style:
+        type: default
+        options:
+          row_class: ''
+          default_row_class: true
+          uses_fields: false
+      row:
+        type: search_api
+        options:
+          view_modes:
+            'entity:node':
+              article: teaser
+              pokemon: teaser
+            'entity:taxonomy_term':
+              abilities: default
+              colors: default
+              egg_groups: default
+              forms: default
+              genders: default
+              habitats: default
+              shapes: default
+              species: default
+              tags: default
+              types: default
+      query:
+        type: search_api_query
+        options:
+          bypass_access: false
+          skip_access: false
+          preserve_facet_query_args: false
+          query_tags: {  }
+      relationships: {  }
+      css_class: ''
+      header: {  }
+      footer: {  }
+      display_extenders: {  }
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_interface'
+        - url
+        - url.query_args
+        - user
+        - 'user.node_grants:view'
+      tags:
+        - 'config:search_api.index.index'
+  page_1:
+    id: page_1
+    display_title: Page
+    display_plugin: page
+    position: 1
+    display_options:
+      exposed_block: true
+      display_extenders: {  }
+      path: search-pokemon
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_interface'
+        - url
+        - url.query_args
+        - user
+        - 'user.node_grants:view'
+      tags:
+        - 'config:search_api.index.index'

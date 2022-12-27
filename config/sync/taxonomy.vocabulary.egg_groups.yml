@@ -1,0 +1,8 @@
+uuid: b4d78b1f-2c0b-4a8f-9959-422f1b537beb
+langcode: en
+status: true
+dependencies: {  }
+name: 'Egg Groups'
+vid: egg_groups
+description: ''
+weight: -8

@@ -1,0 +1,150 @@
+uuid: 7b761da4-134a-40dd-b7dc-71b00f07d760
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.pokemon.field_abilities
+    - field.field.node.pokemon.field_base_experience
+    - field.field.node.pokemon.field_colors
+    - field.field.node.pokemon.field_egg_groups
+    - field.field.node.pokemon.field_forms
+    - field.field.node.pokemon.field_genders
+    - field.field.node.pokemon.field_habitats
+    - field.field.node.pokemon.field_height
+    - field.field.node.pokemon.field_image
+    - field.field.node.pokemon.field_name
+    - field.field.node.pokemon.field_shapes
+    - field.field.node.pokemon.field_species
+    - field.field.node.pokemon.field_types
+    - field.field.node.pokemon.field_weight
+    - node.type.pokemon
+  module:
+    - text
+    - user
+id: node.pokemon.default
+targetEntityType: node
+bundle: pokemon
+mode: default
+content:
+  field_abilities:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 6
+    region: content
+  field_base_experience:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_colors:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 7
+    region: content
+  field_egg_groups:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 8
+    region: content
+  field_forms:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 9
+    region: content
+  field_genders:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  field_habitats:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 11
+    region: content
+  field_height:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_image:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_name:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_shapes:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 12
+    region: content
+  field_species:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 13
+    region: content
+  field_types:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 14
+    region: content
+  field_weight:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  search_api_excerpt: true

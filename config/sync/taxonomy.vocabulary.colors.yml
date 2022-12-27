@@ -1,0 +1,8 @@
+uuid: c16d8cba-c18c-4cfe-92f5-aae83fa5a36a
+langcode: en
+status: true
+dependencies: {  }
+name: Colors
+vid: colors
+description: ''
+weight: -9

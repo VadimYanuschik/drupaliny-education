@@ -1,0 +1,16 @@
+uuid: e7a99fdb-3385-4fd3-a59f-b90a81e3ed12
+langcode: en
+status: true
+dependencies: {  }
+id: species_queue
+label: 'Species Queue'
+backend: database
+backend_configuration:
+  lease_time: 300
+processor: cron
+processing_time: 90
+locked: false
+threshold:
+  type: 0
+  limit: 0
+  state: all
