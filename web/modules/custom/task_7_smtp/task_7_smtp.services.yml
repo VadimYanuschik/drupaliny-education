@@ -1,6 +1,7 @@
 services:
   task_7_smtp.update_pokemon_subscriber:
     class: Drupal\task_7_smtp\EventSubscriber\UpdatePokemonSubscriber
+    arguments: [ '@config.factory' ]
     tags:
       - { name: event_subscriber }
   task_7_smtp.mailing_notification_form:

@@ -11,6 +11,6 @@ function task_7_smtp_node_update(EntityInterface $entity): void {
     /** @var \Drupal\Component\EventDispatcher\ContainerAwareEventDispatcher $dispatcher */
     $dispatcher = \Drupal::service('event_dispatcher');
     $event = new UpdatePokemonNodeEvent();
-    $dispatcher->dispatch($event);
+    $dispatcher->dispatch(UpdatePokemonNodeEvent::UPDATE_POKEMON, $event);
   }
 }
