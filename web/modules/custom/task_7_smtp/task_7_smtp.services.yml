@@ -1,0 +1,8 @@
+services:
+  task_7_smtp.update_pokemon_subscriber:
+    class: Drupal\task_7_smtp\EventSubscriber\UpdatePokemonSubscriber
+    tags:
+      - { name: event_subscriber }
+  task_7_smtp.mailing_notification_form:
+    class: Drupal\task_7_smtp\Form\MailingNotificationForm
+    arguments: [ '@email.validator' ]
