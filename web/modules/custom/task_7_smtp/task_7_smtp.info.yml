@@ -1,0 +1,7 @@
+name: Task 7 SMTP
+description: smtp task for sending emails when pokemon updated
+type: module
+core_version_requirement: ^9
+dependencies:
+  - drupal:smtp
+  - drupal:symfony_mailer
