@@ -72,12 +72,15 @@ module:
   search_api_autocomplete: 0
   search_api_db: 0
   shortcut: 0
+  smtp: 0
   sophron: 0
   sophron_guesser: 0
-  swiftmailer: 0
+  symfony_mailer: 0
+  symfony_mailer_bc: 0
   system: 0
   task_4: 0
   task_6_cron: 0
+  task_7_smtp: 0
   taxonomy: 0
   text: 0
   token: 0
