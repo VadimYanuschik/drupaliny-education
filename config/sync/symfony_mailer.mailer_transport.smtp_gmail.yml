@@ -1,0 +1,18 @@
+uuid: 8a163495-e70c-48e8-8120-f5b5d35a7669
+langcode: en
+status: true
+dependencies: {  }
+id: smtp_gmail
+label: 'SMTP GMAIL'
+plugin: smtp
+configuration:
+  user: gamernastyle@gmail.com
+  pass: vqntfksoqifqfwdo
+  host: smtp.gmail.com
+  port: 465
+  query:
+    verify_peer: true
+    local_domain: ''
+    restart_threshold: null
+    restart_threshold_sleep: null
+    ping_threshold: null
