@@ -9,6 +9,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class MailingNotificationForm extends ConfigFormBase {
 
   /**
+   * Defines email validator service
+   *
    * @var \Drupal\Component\Utility\EmailValidator
    */
   protected $emailValidator;
@@ -28,7 +30,7 @@ class MailingNotificationForm extends ConfigFormBase {
    */
   protected function getEditableConfigNames(): array {
     return [
-      'task_7_smtp.mailing_notified_settings',
+      'mailing_notification_list',
     ];
   }
 
@@ -36,14 +38,14 @@ class MailingNotificationForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function getFormId(): string {
-    return 'task_7_smtp_mailing_notified_settings';
+    return 'mailing_notification_form';
   }
 
   /**
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state): array {
-    $config = $this->config('task_7_smtp.mailing_notified_settings');
+    $config = $this->config('mailing_notification_list');
 
     $form = parent::buildForm($form, $form_state);
 
@@ -76,7 +78,7 @@ class MailingNotificationForm extends ConfigFormBase {
   public function submitForm(array &$form, FormStateInterface $form_state): void {
     parent::submitForm($form, $form_state);
 
-    $this->config('task_7_smtp.mailing_notified_settings')
+    $this->config('mailing_notification_list')
       ->set('emails', $form_state->getValue('emails'))
       ->save();
   }

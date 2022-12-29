@@ -1,9 +1,9 @@
 services:
-  task_7_smtp.update_pokemon_subscriber:
+  task_7_smtp.updating_pokemon_event_subscriber:
     class: Drupal\task_7_smtp\EventSubscriber\UpdatePokemonSubscriber
-    arguments: [ '@config.factory' ]
+    arguments: [ '@config.factory', '@messenger', '@plugin.manager.mail' ]
     tags:
       - { name: event_subscriber }
-  task_7_smtp.mailing_notification_form:
+  task_7_smtp.mailing_notification_settings:
     class: Drupal\task_7_smtp\Form\MailingNotificationForm
     arguments: [ '@email.validator' ]

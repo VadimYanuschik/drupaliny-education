@@ -1,5 +1,6 @@
 <?php
 
+use Drupal\Component\Utility\Html;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\task_7_smtp\Event\UpdatePokemonNodeEvent;
 
@@ -12,5 +13,21 @@ function task_7_smtp_node_update(EntityInterface $entity): void {
     $dispatcher = \Drupal::service('event_dispatcher');
     $event = new UpdatePokemonNodeEvent();
     $dispatcher->dispatch(UpdatePokemonNodeEvent::UPDATE_POKEMON, $event);
+  }
+}
+
+/**
+ * Implements hook_mail().
+ */
+function task_7_smtp_mail($key, &$message, $params) {
+  $options = array(
+    'langcode' => $message['langcode'],
+  );
+  switch ($key) {
+    case 'update_pokemon':
+      $message['from'] = \Drupal::config('system.site')->get('mail');
+      $message['subject'] = t('@title', array('@title' => $params['title']), $options);
+      $message['body'][] = Html::escape($params['message']);
+      break;
   }
 }

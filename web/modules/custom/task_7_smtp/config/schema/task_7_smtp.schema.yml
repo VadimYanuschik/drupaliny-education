@@ -1,0 +1,7 @@
+task_7_smtp.emails:
+  type: config_object
+  label: 'Emails'
+  mapping:
+    emails:
+      type: string
+      label: 'Emails list'
