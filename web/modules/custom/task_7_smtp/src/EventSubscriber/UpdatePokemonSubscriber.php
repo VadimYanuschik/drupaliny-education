@@ -37,7 +37,22 @@ class UpdatePokemonSubscriber implements EventSubscriberInterface {
    * @return void
    */
   public function sendMailingNotification(UpdatePokemonNodeEvent $event): void {
+    $mailManager = \Drupal::service('plugin.manager.mail');
+    $module = 'task_7_smtp';
+    $key = 'update_pokemon';
+    $to = 'roadto5500@bk.ru';
+    $params['message'] = 'pokemon updated';
+    $params['title'] = 'Pokemon';
+    $langcode = \Drupal::currentUser()->getPreferredLangcode();
 
+    $result = $mailManager->mail($module, $key, $to, $langcode, $params, NULL, TRUE);
+    if ($result['result'] !== TRUE) {
+      \Drupal::messenger()
+        ->addStatus('There was a problem sending your message and it was not sent');
+    }
+    else {
+      \Drupal::messenger()->addStatus('Your message has been sent.');
+    }
   }
 
   /**
@@ -48,7 +63,7 @@ class UpdatePokemonSubscriber implements EventSubscriberInterface {
    * @return array
    */
   private function getEmails(ConfigFactoryInterface $config_factory): array {
-    $emails = $config_factory->get('task_7_smtp.mailing_notified_settings')
+    $emails = $config_factory->get('mailing_notification_list')
       ->get('emails');
 
     return array_map(fn($email) => trim($email), explode(',', $emails));
