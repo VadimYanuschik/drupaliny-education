@@ -45,9 +45,9 @@ class MailingNotificationForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state): array {
-    $config = $this->config('task_7_smtp.mailing_notification_list');
-
     $form = parent::buildForm($form, $form_state);
+
+    $config = $this->config('task_7_smtp.mailing_notification_list');
 
     $form['emails'] = [
       '#type' => 'textarea',

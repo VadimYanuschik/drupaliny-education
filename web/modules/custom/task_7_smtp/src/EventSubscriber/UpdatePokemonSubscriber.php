@@ -18,14 +18,16 @@ class UpdatePokemonSubscriber implements EventSubscriberInterface {
   protected array $emails;
 
   /**
+   * Defines messenger service
+   *
    * @var \Drupal\Core\Messenger\MessengerInterface
    */
   protected $messenger;
 
   /**
-   * Defines mail manager
+   * Defines mail manager service
    *
-   * @var \Drupal\Core\Mail\MailManager
+   * @var \Drupal\Core\Mail\MailManagerInterface
    */
   protected $mailManager;
 
@@ -74,7 +76,6 @@ class UpdatePokemonSubscriber implements EventSubscriberInterface {
 
     $this->messenger
       ->addMessage('Your emails have been sent.');
-
   }
 
   /**

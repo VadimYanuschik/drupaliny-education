@@ -9,21 +9,25 @@ class UpdatePokemonNodeEvent extends Event {
   const UPDATE_POKEMON = 'mailing_on_pokemon_updating';
 
   /**
-   * Variables from preprocess.
+   * Event variables
+   *
+   * @var array
    */
-  protected $variables;
+  protected array $variables;
 
   /**
-   * DummyFrontpageEvent constructor.
+   * @param $variables
    */
   public function __construct($variables) {
     $this->variables = $variables;
   }
 
   /**
-   * Returns variables array from preprocess.
+   * Returns event variables
+   *
+   * @return array
    */
-  public function getVariables() {
+  public function getVariables(): array {
     return $this->variables;
   }
 
