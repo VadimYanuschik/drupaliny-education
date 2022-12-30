@@ -11,7 +11,18 @@ function task_7_smtp_node_update(EntityInterface $entity): void {
   if ($entity->bundle() === "pokemon") {
     /** @var \Drupal\Component\EventDispatcher\ContainerAwareEventDispatcher $dispatcher */
     $dispatcher = \Drupal::service('event_dispatcher');
-    $event = new UpdatePokemonNodeEvent();
+
+    $link = \Drupal::request()->getSchemeAndHttpHost() . $entity->toLink()
+        ->getUrl()
+        ->toString();
+
+    $event = new UpdatePokemonNodeEvent([
+      'module' => 'task_7_smtp',
+      'key' => 'update_pokemon',
+      'langcode' => 'en',
+      'pokemon_link' => $link,
+    ]);
+
     $dispatcher->dispatch(UpdatePokemonNodeEvent::UPDATE_POKEMON, $event);
   }
 }
@@ -20,13 +31,12 @@ function task_7_smtp_node_update(EntityInterface $entity): void {
  * Implements hook_mail().
  */
 function task_7_smtp_mail($key, &$message, $params) {
-  $options = array(
-    'langcode' => $message['langcode'],
-  );
+  $options = ['langcode' => $message['langcode']];
+
   switch ($key) {
     case 'update_pokemon':
       $message['from'] = \Drupal::config('system.site')->get('mail');
-      $message['subject'] = t('@title', array('@title' => $params['title']), $options);
+      $message['subject'] = t('@title', ['@title' => $params['title']], $options);
       $message['body'][] = Html::escape($params['message']);
       break;
   }

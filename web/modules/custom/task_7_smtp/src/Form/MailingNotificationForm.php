@@ -30,7 +30,7 @@ class MailingNotificationForm extends ConfigFormBase {
    */
   protected function getEditableConfigNames(): array {
     return [
-      'mailing_notification_list',
+      'task_7_smtp.mailing_notification_list',
     ];
   }
 
@@ -45,7 +45,7 @@ class MailingNotificationForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state): array {
-    $config = $this->config('mailing_notification_list');
+    $config = $this->config('task_7_smtp.mailing_notification_list');
 
     $form = parent::buildForm($form, $form_state);
 
@@ -78,7 +78,7 @@ class MailingNotificationForm extends ConfigFormBase {
   public function submitForm(array &$form, FormStateInterface $form_state): void {
     parent::submitForm($form, $form_state);
 
-    $this->config('mailing_notification_list')
+    $this->config('task_7_smtp.mailing_notification_list')
       ->set('emails', $form_state->getValue('emails'))
       ->save();
   }

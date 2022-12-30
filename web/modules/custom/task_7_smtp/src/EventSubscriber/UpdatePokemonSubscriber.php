@@ -3,21 +3,41 @@
 namespace Drupal\task_7_smtp\EventSubscriber;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Mail\MailManagerInterface;
+use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\task_7_smtp\Event\UpdatePokemonNodeEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class UpdatePokemonSubscriber implements EventSubscriberInterface {
 
   /**
+   * List of notified emails
+   *
    * @var array
    */
   protected array $emails;
 
   /**
-   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
+   * @var \Drupal\Core\Messenger\MessengerInterface
    */
-  public function __construct(ConfigFactoryInterface $config_factory) {
+  protected $messenger;
+
+  /**
+   * Defines mail manager
+   *
+   * @var \Drupal\Core\Mail\MailManager
+   */
+  protected $mailManager;
+
+  /**
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
+   * @param \Drupal\Core\Messenger\MessengerInterface $messenger
+   * @param \Drupal\Core\Mail\MailManagerInterface $mail_manager
+   */
+  public function __construct(ConfigFactoryInterface $config_factory, MessengerInterface $messenger, MailManagerInterface $mail_manager) {
     $this->emails = $this->getEmails($config_factory);
+    $this->messenger = $messenger;
+    $this->mailManager = $mail_manager;
   }
 
   /**
@@ -37,22 +57,24 @@ class UpdatePokemonSubscriber implements EventSubscriberInterface {
    * @return void
    */
   public function sendMailingNotification(UpdatePokemonNodeEvent $event): void {
-    $mailManager = \Drupal::service('plugin.manager.mail');
-    $module = 'task_7_smtp';
-    $key = 'update_pokemon';
-    $to = 'roadto5500@bk.ru';
-    $params['message'] = 'pokemon updated';
-    $params['title'] = 'Pokemon';
-    $langcode = \Drupal::currentUser()->getPreferredLangcode();
+    $variables = $event->getVariables();
 
-    $result = $mailManager->mail($module, $key, $to, $langcode, $params, NULL, TRUE);
-    if ($result['result'] !== TRUE) {
-      \Drupal::messenger()
-        ->addStatus('There was a problem sending your message and it was not sent');
+    $params['title'] = 'Pokemon updated';
+    $params['message'] = "Pokemon was updated, link: {$variables['pokemon_link']}";
+
+    foreach ($this->emails as $email) {
+      $this->mailManager->mail(
+        $variables['module'],
+        $variables['key'],
+        $email,
+        $variables['langcode'],
+        $params
+      );
     }
-    else {
-      \Drupal::messenger()->addStatus('Your message has been sent.');
-    }
+
+    $this->messenger
+      ->addMessage('Your emails have been sent.');
+
   }
 
   /**
@@ -63,7 +85,7 @@ class UpdatePokemonSubscriber implements EventSubscriberInterface {
    * @return array
    */
   private function getEmails(ConfigFactoryInterface $config_factory): array {
-    $emails = $config_factory->get('mailing_notification_list')
+    $emails = $config_factory->get('task_7_smtp.mailing_notification_list')
       ->get('emails');
 
     return array_map(fn($email) => trim($email), explode(',', $emails));
