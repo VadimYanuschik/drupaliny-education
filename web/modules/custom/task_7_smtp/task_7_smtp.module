@@ -9,28 +9,33 @@ use Drupal\task_7_smtp\Event\UpdatePokemonNodeEvent;
  */
 function task_7_smtp_node_update(EntityInterface $entity): void {
   if ($entity->bundle() === "pokemon") {
-    /** @var \Drupal\Component\EventDispatcher\ContainerAwareEventDispatcher $dispatcher */
-    $dispatcher = \Drupal::service('event_dispatcher');
-
-    $link = \Drupal::request()->getSchemeAndHttpHost() . $entity->toLink()
+    $pokemon_link = \Drupal::request()->getSchemeAndHttpHost() . $entity->toLink()
         ->getUrl()
         ->toString();
+
+    $message = "Pokemon was updated, link: $pokemon_link";
 
     $event = new UpdatePokemonNodeEvent([
       'module' => 'task_7_smtp',
       'key' => 'update_pokemon',
       'langcode' => 'en',
-      'pokemon_link' => $link,
+      'message' => $message,
     ]);
 
-    $dispatcher->dispatch(UpdatePokemonNodeEvent::UPDATE_POKEMON, $event);
+    dispatch_event(UpdatePokemonNodeEvent::MAIL_NOTIFY, $event);
+
+    $event = new UpdatePokemonNodeEvent([
+      'message' => $message
+    ]);
+
+    dispatch_event(UpdatePokemonNodeEvent::TELEGRAM_NOTIFY, $event);
   }
 }
 
 /**
  * Implements hook_mail().
  */
-function task_7_smtp_mail($key, &$message, $params) {
+function task_7_smtp_mail($key, &$message, $params): void {
   $options = ['langcode' => $message['langcode']];
 
   switch ($key) {
@@ -40,4 +45,11 @@ function task_7_smtp_mail($key, &$message, $params) {
       $message['body'][] = Html::escape($params['message']);
       break;
   }
+}
+
+function dispatch_event($event_name, $event): void {
+  /** @var \Drupal\Component\EventDispatcher\ContainerAwareEventDispatcher $dispatcher */
+  $dispatcher = \Drupal::service('event_dispatcher');
+
+  $dispatcher->dispatch($event_name, $event);
 }

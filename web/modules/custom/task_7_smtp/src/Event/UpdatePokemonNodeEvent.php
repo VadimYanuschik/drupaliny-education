@@ -6,7 +6,8 @@ use Drupal\Component\EventDispatcher\Event;
 
 class UpdatePokemonNodeEvent extends Event {
 
-  const UPDATE_POKEMON = 'mailing_on_pokemon_updating';
+  const MAIL_NOTIFY = 'mailing_on_pokemon_updating';
+  const TELEGRAM_NOTIFY = 'telegram_message_on_pokemon_updating';
 
   /**
    * Event variables

@@ -46,9 +46,10 @@ class UpdatePokemonSubscriber implements EventSubscriberInterface {
    * {@inheritdoc}
    */
   public static function getSubscribedEvents(): array {
-    return [
-      UpdatePokemonNodeEvent::UPDATE_POKEMON => ['sendMailingNotification'],
-    ];
+    $events[UpdatePokemonNodeEvent::MAIL_NOTIFY][] = ['sendMailingNotification'];
+    $events[UpdatePokemonNodeEvent::TELEGRAM_NOTIFY][] = ['sendTelegramNotification'];
+
+    return $events;
   }
 
   /**
@@ -62,7 +63,7 @@ class UpdatePokemonSubscriber implements EventSubscriberInterface {
     $variables = $event->getVariables();
 
     $params['title'] = 'Pokemon updated';
-    $params['message'] = "Pokemon was updated, link: {$variables['pokemon_link']}";
+    $params['message'] = $variables['message'];
 
     foreach ($this->emails as $email) {
       $this->mailManager->mail(
@@ -76,6 +77,25 @@ class UpdatePokemonSubscriber implements EventSubscriberInterface {
 
     $this->messenger
       ->addMessage('Your emails have been sent.');
+  }
+
+  public function sendTelegramNotification(UpdatePokemonNodeEvent $event) {
+    $this->messenger
+      ->addMessage('Your telegram');
+    $variables = $event->getVariables();
+
+    $telegram_bot = \Drupal::entityTypeManager()
+      ->getStorage('telegram_bot')
+      ->load('notification');
+
+    /** @var \Telegram\Bot\Api $telegram */
+    $telegram = \Drupal::service('drupal_telegram_sdk.bot_api')
+      ->getTelegram($telegram_bot);
+
+    $telegram->sendMessage([
+      'chat_id' => '-808709839',
+      'text' => $variables['message'],
+    ]);
   }
 
   /**
