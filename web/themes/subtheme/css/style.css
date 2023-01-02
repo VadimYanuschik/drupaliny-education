@@ -4,7 +4,12 @@
   column-gap: 1em;
 }
 
-.pokemon-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, 150px);
+.pokemon-table {
+  border-spacing: 0;
+  border: 1px solid;
+}
+.pokemon-table td {
+  vertical-align: top;
+  border: 1px solid;
+  padding: 0.5em;
 }
