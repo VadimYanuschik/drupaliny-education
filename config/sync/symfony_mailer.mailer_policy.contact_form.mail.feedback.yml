@@ -1,0 +1,13 @@
+uuid: 5b15072e-0cf9-48cf-b217-52902188440f
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.feedback
+id: contact_form.mail.feedback
+configuration:
+  email_to:
+    addresses:
+      -
+        value: admin@example.com
+        display: ''

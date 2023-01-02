@@ -1,0 +1,12 @@
+uuid: b047541e-629f-4488-9f95-cb256ba2844b
+langcode: en
+status: true
+dependencies:
+  module:
+    - contact_emails
+id: contact_emails.notification
+configuration:
+  email_body:
+    content:
+      value: "<p>ёу, покемон поменялся. давно тебя не было в уличных гонках.</p>\r\n"
+      format: basic_html

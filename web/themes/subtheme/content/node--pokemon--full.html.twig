@@ -104,9 +104,29 @@
       </div>
     {% endif %}
   </header>
-  <div{{ content_attributes.addClass('node__content', layout, 'pokemon-grid') }}>
+  <div{{ content_attributes.addClass('node__content', layout) }}>
     {# Comments not part of content, so they won't inherit .text-content styles. #}
-    {{ content|without('comment') }}
+    {{ content.field_image }}
+    <table class="pokemon-table">
+      <tr>
+        <td>{{ content.field_abilities }}</td>
+        <td>{{ content.field_base_experience }}</td>
+        <td>{{ content.field_colors }}</td>
+        <td>{{ content.field_egg_groups }}</td>
+      </tr>
+      <tr>
+        <td>{{ content.field_forms }}</td>
+        <td>{{ content.field_genders }}</td>
+        <td>{{ content.field_habitats }}</td>
+        <td>{{ content.field_height }}</td>
+      </tr>
+      <tr>
+        <td>{{ content.field_shapes }}</td>
+        <td>{{ content.field_species }}</td>
+        <td>{{ content.field_types }}</td>
+        <td>{{ content.field_weight }}</td>
+      </tr>
+    </table>
   </div>
   {% if content.comment %}
     <div id="comments" class="{{ layout }}">
