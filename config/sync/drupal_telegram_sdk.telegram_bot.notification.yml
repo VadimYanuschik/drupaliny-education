@@ -1,0 +1,7 @@
+uuid: 1b7a25ad-124a-4d62-89f8-b6f322b266fb
+langcode: en
+status: true
+dependencies: {  }
+id: notification
+label: 'Notification bot'
+token: '5802895914:AAHrcAfMNADQLXwNjBXfY4AYOq0irQd2s0I'

@@ -1,7 +1,15 @@
 task_7_smtp.mailing_notification_form:
-  path: '/admin/config/task_7_smtp/settings'
+  path: '/admin/config/task_7_smtp/mailing'
   defaults:
     _form: '\Drupal\task_7_smtp\Form\MailingNotificationForm'
     _title: 'Mailing list'
+  requirements:
+    _permission: 'administer site configuration'
+
+task_7_smtp.telegram_bot_form:
+  path: '/admin/config/task_7_smtp/telegram_bot'
+  defaults:
+    _form: '\Drupal\task_7_smtp\Form\TelegramBotForm'
+    _title: 'Telegram bot settings'
   requirements:
     _permission: 'administer site configuration'

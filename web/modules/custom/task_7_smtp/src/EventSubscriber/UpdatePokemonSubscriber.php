@@ -3,10 +3,12 @@
 namespace Drupal\task_7_smtp\EventSubscriber;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Mail\MailManagerInterface;
 use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\task_7_smtp\Event\UpdatePokemonNodeEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Drupal\drupal_telegram_sdk\TelegramBotApi;
 
 class UpdatePokemonSubscriber implements EventSubscriberInterface {
 
@@ -32,14 +34,35 @@ class UpdatePokemonSubscriber implements EventSubscriberInterface {
   protected $mailManager;
 
   /**
+   * Defines Telegram API interface
+   *
+   * @var \Telegram\Bot\Api
+   */
+  protected $telegram;
+
+  /**
+   * Telegram chat id
+   *
+   * @var string
+   */
+  protected string $telegramChatId;
+
+  /**
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
    * @param \Drupal\Core\Messenger\MessengerInterface $messenger
    * @param \Drupal\Core\Mail\MailManagerInterface $mail_manager
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    */
-  public function __construct(ConfigFactoryInterface $config_factory, MessengerInterface $messenger, MailManagerInterface $mail_manager) {
+  public function __construct(ConfigFactoryInterface $config_factory, MessengerInterface $messenger, MailManagerInterface $mail_manager, EntityTypeManagerInterface $entity_type_manager, TelegramBotApi $telegram) {
     $this->emails = $this->getEmails($config_factory);
     $this->messenger = $messenger;
     $this->mailManager = $mail_manager;
+    $this->telegramChatId = $config_factory->get('task_7_smtp.telegram_bot_settings')->get('chat_id');
+
+    $telegram_bot = $entity_type_manager->getStorage('telegram_bot')
+      ->load('notification');
+    $this->telegram = $telegram->getTelegram($telegram_bot);
+
   }
 
   /**
@@ -79,23 +102,24 @@ class UpdatePokemonSubscriber implements EventSubscriberInterface {
       ->addMessage('Your emails have been sent.');
   }
 
-  public function sendTelegramNotification(UpdatePokemonNodeEvent $event) {
-    $this->messenger
-      ->addMessage('Your telegram');
+  /**
+   * Send telegram notification
+   *
+   * @param \Drupal\task_7_smtp\Event\UpdatePokemonNodeEvent $event
+   *
+   * @return void
+   * @throws \Telegram\Bot\Exceptions\TelegramSDKException
+   */
+  public function sendTelegramNotification(UpdatePokemonNodeEvent $event): void {
     $variables = $event->getVariables();
 
-    $telegram_bot = \Drupal::entityTypeManager()
-      ->getStorage('telegram_bot')
-      ->load('notification');
-
-    /** @var \Telegram\Bot\Api $telegram */
-    $telegram = \Drupal::service('drupal_telegram_sdk.bot_api')
-      ->getTelegram($telegram_bot);
-
-    $telegram->sendMessage([
-      'chat_id' => '-808709839',
+    $this->telegram->sendMessage([
+      'chat_id' => $this->telegramChatId,
       'text' => $variables['message'],
     ]);
+
+    $this->messenger
+      ->addMessage('Your telegram message was sended');
   }
 
   /**

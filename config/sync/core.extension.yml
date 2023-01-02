@@ -24,6 +24,7 @@ module:
   ctools_entity_mask: 0
   datetime: 0
   dblog: 0
+  drupal_telegram_sdk: 0
   editor: 0
   entity_reference_revisions: 0
   field: 0
